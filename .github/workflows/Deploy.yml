@@ -22,11 +22,12 @@ jobs:
       - uses: actions/checkout@v3
 
       # 下面这一步不需要了,以为已经cp好了
-      Runs a single command using the runners shell
-           - name: install
-             run: |
-                  npm install
-                  npm run build
+      #Runs a single command using the runners shell
+      - name: install
+        run: |
+            node -v
+            npm install
+            npm run build
       # Deploy
       - name: Deploy
         uses: easingthemes/ssh-deploy@main
