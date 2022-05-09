@@ -1,85 +1,45 @@
-export const Document: any = {
-  title: '文档',
-  img: 'https://staging-cn.vuejs.org/logo.svg',
-  children: [
-    {
-      link: 'https://staging-cn.vuejs.org/',
-      des: 'Vue3中文文档',
-      icon: 'https://staging-cn.vuejs.org/logo.svg',
-    },
-    {
-      link: 'https://yayujs.com/',
-      des: 'TypeScript中文文档',
-      icon: 'https://yayujs.com/favicon-32x32.png',
-    },
-    {
-      link: 'https://cn.vitejs.dev/',
-      des: 'Vite中文文档',
-      icon: 'https://cn.vitejs.dev/logo.svg',
-    },
-    {
-      link: 'https://www.expressjs.com.cn/',
-      des: 'Express',
-      icon: 'https://www.expressjs.com.cn/images/favicon.png',
-    },
-    {
-      link: 'https://koa.bootcss.com/',
-      des: 'Koa文档',
-      icon: 'https://staging-cn.vuejs.org/logo.svg',
-    },
-    {
-      link: 'https://www.eggjs.org/zh-CN',
-      des: 'Eggjs',
-      icon: 'https://www.eggjs.org/favicon.png',
-    },
-    {
-      link: 'https://staging-cn.vuejs.org/',
-      des: 'Vue3中文文档',
-      icon: 'https://staging-cn.vuejs.org/logo.svg',
-    },
-    {
-      link: 'https://yayujs.com/',
-      des: 'TypeScript中文文档',
-      icon: 'https://yayujs.com/favicon-32x32.png',
-    },
-    {
-      link: 'https://cn.vitejs.dev/',
-      des: 'Vite中文文档',
-      icon: 'https://cn.vitejs.dev/logo.svg',
-    },
-    {
-      link: 'https://www.expressjs.com.cn/',
-      des: 'Express',
-      icon: 'https://www.expressjs.com.cn/images/favicon.png',
-    },
-    {
-      link: 'https://koa.bootcss.com/',
-      des: 'Koa文档',
-      icon: 'https://staging-cn.vuejs.org/logo.svg',
-    },
-    {
-      link: 'https://www.eggjs.org/zh-CN',
-      des: 'Eggjs',
-      icon: 'https://www.eggjs.org/favicon.png',
-    },
-    {
-      link: 'https://v3.bootcss.com/',
-      des: 'BootStrap',
-      icon: 'https://fastly.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.35/favicon.ico',
-    },
-
-    {
-      link: 'https://v3.bootcss.com/',
-      des: 'BootStrap',
-      icon: 'https://fastly.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.35/favicon.ico',
-    },
-    {
-      link: 'https://v3.bootcss.com/',
-      des: 'BootStrap',
-      icon: 'https://fastly.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.35/favicon.ico',
-    },
-  ],
-};
+export const Document: any[] = [
+  {
+    link: 'https://staging-cn.vuejs.org/',
+    des: 'Vue3中文文档',
+    icon: 'https://staging-cn.vuejs.org/logo.svg',
+  },
+  {
+    link: 'https://yayujs.com/',
+    des: 'TypeScript中文文档',
+    icon: 'https://yayujs.com/favicon-32x32.png',
+  },
+  {
+    link: 'https://cn.vitejs.dev/',
+    des: 'Vite中文文档',
+    icon: 'https://cn.vitejs.dev/logo.svg',
+  },
+  {
+    link: 'https://www.expressjs.com.cn/',
+    des: 'Express',
+    icon: 'https://www.expressjs.com.cn/images/favicon.png',
+  },
+  {
+    link: 'https://koa.bootcss.com/',
+    des: 'Koa文档',
+    icon: 'https://staging-cn.vuejs.org/logo.svg',
+  },
+  {
+    link: 'https://www.eggjs.org/zh-CN',
+    des: 'Eggjs',
+    icon: 'https://www.eggjs.org/favicon.png',
+  },
+  {
+    link: 'https://staging-cn.vuejs.org/',
+    des: 'Vue3中文文档',
+    icon: 'https://staging-cn.vuejs.org/logo.svg',
+  },
+  {
+    link: 'https://yayujs.com/',
+    des: 'TypeScript中文文档',
+    icon: 'https://yayujs.com/favicon-32x32.png',
+  },
+];
 
 export const Video: any = {
   title: '视频',

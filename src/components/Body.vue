@@ -4,19 +4,7 @@
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
       <input v-model="search" type="text" />
     </div>
-    <template v-if="!isSimple">
-      <div class="body-content">
-        <Category :source="Document" :is-folad="false" />
-        <Category :source="Community" :is-folad="false" />
-        <Category :source="Video" :is-folad="false" />
-        <Category :source="Video" :is-folad="false" />
-        <Category :source="Video" :is-folad="false" />
-        <Category :source="Video" :is-folad="false" />
-      </div>
-    </template>
-    <div class="switch" @click="changeType">
-      {{ isSimple ? '切换为经典版' : '切换键简洁版' }}
-    </div>
+    <Dock></Dock>
   </div>
 </template>
 
@@ -24,10 +12,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 import Select from '../base-ui/Select.vue';
-import Category from '../base-ui/Category.vue';
-
+import Dock from '../base-ui/Dock.vue';
 import { searchConfig } from '../config/search.config';
-import { Document, Video, Community } from '../config/bodyconfig';
 
 const search = ref('');
 const searchOrigin = ref(searchConfig[0]);
@@ -85,19 +71,5 @@ onBeforeUnmount(() => {
       flex: 1;
     }
   }
-  .body-content {
-    display: flex;
-    gap: 25px;
-    // justify-content: space-between;
-  }
-}
-
-.switch {
-  cursor: pointer;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 5px;
-  color: #fff;
 }
 </style>
