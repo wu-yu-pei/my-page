@@ -9,7 +9,7 @@
     <img :src="source.icon" alt="" />
     <div class="dock-item-info">{{ source.des }}</div>
     <div
-      :class="{ show: isShowDelete }"
+      :class="{ show: isShowDelete && hasDelete }"
       class="dock-item-delete hidden"
       @click.prevent="deleteThis"
     >
@@ -30,6 +30,10 @@ const props = defineProps({
       icon: 'https://yayujs.com/favicon-32x32.png',
       des: 'TypeScript中文文档',
     },
+  },
+  hasDelete: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -58,6 +62,7 @@ onClickOutside(the, () => {
   width: 32px;
   height: 32px;
   transition: all linear 0.1s;
+  margin: 0 10px;
   img {
     width: 32px;
     height: 32px;

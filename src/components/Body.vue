@@ -17,7 +17,6 @@ import { searchConfig } from '../config/search.config';
 
 const search = ref('');
 const searchOrigin = ref(searchConfig[0]);
-const isSimple = ref(true);
 
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;
@@ -27,10 +26,6 @@ const handleSearch = (e: any) => {
 
 const searchOriginChange = (Origin: any) => {
   searchOrigin.value = Origin;
-};
-
-const changeType = () => {
-  isSimple.value = !isSimple.value;
 };
 
 onMounted(() => {
@@ -45,7 +40,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="less">
 .body {
-  width: 1200px;
+  // width: 1200px;
   margin: auto;
   .body-search {
     display: flex;
