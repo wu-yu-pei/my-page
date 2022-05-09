@@ -4,7 +4,7 @@
       <DockItem :source="item" @delete-this="deleteDockItem(index)"></DockItem>
     </template>
     <DockItem
-      :source="{ link: '#', icon: '../src/assets/img/add.png', des: '添加快捷' }"
+      :source="{ link: '#', icon: imgUrl, des: '添加快捷' }"
       @click="add"
       :has-delete="false"
     ></DockItem>
@@ -16,8 +16,10 @@ import { ref, defineEmits } from 'vue';
 
 import DockItem from './DockItem.vue';
 import { Document } from '../config/bodyconfig';
+import imgUrl from '../assets/img/add.png';
 
 let source = ref();
+
 const emit = defineEmits(['add']);
 
 if (JSON.parse(localStorage.getItem('menu')!)) {
