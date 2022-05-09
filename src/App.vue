@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" :style="{ background: `url(${state.WallpaperImgUlr})` }">
     <Header />
     <Body />
   </div>
@@ -8,6 +8,11 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
 import Body from './components/Body.vue';
+import useMainStore from './store/index';
+
+const state = useMainStore();
+
+console.log(state.WallpaperImgUlr);
 </script>
 
 <style>
@@ -15,5 +20,7 @@ import Body from './components/Body.vue';
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  overflow: hidden;
+  background-size: cover;
 }
 </style>

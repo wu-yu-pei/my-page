@@ -2,7 +2,7 @@ export const Document: any[] = [
   {
     link: 'http://github.com/',
     des: 'Github',
-    icon: 'https://github.com/fluidicon.png',
+    icon: 'http://wuyupei.top:8888/upload/github.png',
   },
   {
     link: 'https://staging-cn.vuejs.org/',
@@ -30,9 +30,9 @@ export const Document: any[] = [
     icon: 'https://www.eggjs.org/favicon.png',
   },
   {
-    link:'https://docs.nestjs.cn/',
-    des:'Nest中文文档',
-    icon:'https://docs.nestjs.cn/_media/icon.svg'
+    link: 'https://docs.nestjs.cn/',
+    des: 'Nest中文文档',
+    icon: 'https://docs.nestjs.cn/_media/icon.svg',
   },
   {
     link: 'https://yayujs.com/',

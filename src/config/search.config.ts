@@ -4,5 +4,5 @@ export const searchConfig: any = [
   { name: '搜狗', url: 'https://sogou.com/web?q=' },
   { name: 'npm', url: 'https://www.npmjs.com/search?q=' },
   { name: 'MDN', url: 'https://developer.mozilla.org/zh-CN/search?q=' },
-  { name: 'Bilibili', url: 'https://search.bilibili?keyword=' },
+  { name: 'Bilibili', url: 'https://search.bilibili.com?keyword=' },
 ];
