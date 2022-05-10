@@ -1,14 +1,15 @@
 <template>
+  <!-- 拖拽区域 -->
   <draggable
     v-model="source"
     group="people"
     class="dock"
     @start="drag = true"
     @end="drag = false"
-    item-key="id"
+    item-key="link"
   >
-    <template #item="{ element }">
-      <DockItem :source="element" @delete-this="deleteDockItem"></DockItem>
+    <template #item="{ element, index }">
+      <DockItem :source="element" @delete-this="deleteDockItem(index)"></DockItem>
     </template>
     <template #footer>
       <DockItem
@@ -18,12 +19,12 @@
       ></DockItem>
     </template>
   </draggable>
-
+  <!-- 弹出框 -->
   <Modle v-model:newSource="newSource" @sure="sure" @cancle="cancle" :showModle="showModle"></Modle>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, defineEmits, nextTick } from 'vue';
+import { ref, reactive, defineEmits } from 'vue';
 
 import Modle from '../base-ui/Modle.vue';
 import DockItem from './DockItem.vue';
