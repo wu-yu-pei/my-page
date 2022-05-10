@@ -2,7 +2,7 @@
   <div class="body">
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
-      <input v-model="search" type="text" />
+      <input v-model="search" type="text" ref="inputRef" />
     </div>
     <Dock></Dock>
   </div>
@@ -17,6 +17,7 @@ import { searchConfig } from '../config/search.config';
 
 const search = ref('');
 const searchOrigin = ref();
+const inputRef = ref<InstanceType<typeof HTMLElement>>();
 
 if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
   searchOrigin.value = JSON.parse(localStorage.getItem('searchOrigin')!)[0];
@@ -36,6 +37,8 @@ const searchOriginChange = (Origin: any) => {
 
 onMounted(() => {
   search.value = '';
+  // 自动聚焦
+  inputRef.value!.focus();
   document.addEventListener('keydown', handleSearch);
 });
 

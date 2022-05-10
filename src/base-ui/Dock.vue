@@ -1,29 +1,34 @@
 <template>
-  <div class="dock">
-    <template v-for="(item, index) in source" :key="item.link">
-      <DockItem :source="item" @delete-this="deleteDockItem(index)"></DockItem>
+  <draggable
+    v-model="source"
+    group="people"
+    class="dock"
+    @start="drag = true"
+    @end="drag = false"
+    item-key="id"
+  >
+    <template #item="{ element }">
+      <DockItem :source="element" @delete-this="deleteDockItem"></DockItem>
     </template>
-    <DockItem
-      :source="{ link: '#', icon: imgUrl, des: '添加快捷' }"
-      @click="add"
-      :has-delete="false"
-    ></DockItem>
+    <template #footer>
+      <DockItem
+        :source="{ link: '#', icon: imgUrl, des: '添加快捷' }"
+        @click="add"
+        :has-delete="false"
+      ></DockItem>
+    </template>
+  </draggable>
 
-    <Modle
-      v-model:newSource="newSource"
-      @sure="sure"
-      @cancle="cancle"
-      :showModle="showModle"
-    ></Modle>
-  </div>
+  <Modle v-model:newSource="newSource" @sure="sure" @cancle="cancle" :showModle="showModle"></Modle>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, defineEmits, nextTick } from 'vue';
 
 import Modle from '../base-ui/Modle.vue';
-
 import DockItem from './DockItem.vue';
+import Draggable from 'vuedraggable';
+
 import { Document } from '../config/bodyconfig';
 import imgUrl from '../assets/img/add.png';
 
@@ -34,6 +39,8 @@ const newSource = reactive<any>({
   des: '',
 });
 const showModle = ref(false);
+const drag = ref(false);
+const myArr = [1, 23, 5, 64];
 
 const emit = defineEmits(['add']);
 
