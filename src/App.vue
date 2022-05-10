@@ -1,7 +1,9 @@
 <template>
   <div class="content" :style="{ background: `url(${state.WallpaperImgUlr})` }">
-    <Header />
-    <Body />
+    <div class="filter" :style="{ backdropFilter: `blur(${state.blur}px)` }">
+      <Header />
+      <Body />
+    </div>
   </div>
 </template>
 
@@ -20,5 +22,9 @@ const state = useMainStore();
   margin: 0 auto;
   overflow: hidden;
   background-size: cover;
+}
+.filter {
+  width: 100vw;
+  height: 100vh;
 }
 </style>

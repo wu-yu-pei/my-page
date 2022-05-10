@@ -4,6 +4,7 @@
       <img @click="isShow = !isShow" :src="!isShow ? menuUrl : cancleUrl" alt="" />
     </div>
     <div class="header-left-content" :class="{ show: isShow, hidder: !isShow }" ref="target">
+      <!-- 壁纸 -->
       <div class="header-left-content-wallpaper">
         <h3>壁纸</h3>
         <img :src="store.$state.WallpaperImgUlr" alt="" />
@@ -12,6 +13,19 @@
           <label for="file">本地壁纸</label>
           <input id="file" type="file" @click="changeWallpaperUpload" />
         </div>
+      </div>
+      <!-- 背景模糊 -->
+      <div class="header-left-content-bgfilter">
+        <h3>背景模糊</h3>
+        <Slider
+          :value="store.blur"
+          @update="
+            (value) => {
+              store.blur = value;
+            }
+          "
+          width="100%"
+        ></Slider>
       </div>
     </div>
   </div>
@@ -23,6 +37,8 @@ import { onClickOutside } from '@vueuse/core';
 
 import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
+
+import Slider from './Slider.vue';
 
 import { getRandomImg, uploadImage } from '../api/index';
 import useMainStore from '../store';
@@ -75,6 +91,13 @@ onClickOutside(target, () => {
   transition: all linear 0.3s;
   z-index: 99;
   padding: 10px;
+  & > div {
+    margin: 10px 0;
+  }
+  & > div > h3 {
+    font-size: 22px;
+    font-weight: normal;
+  }
   .header-left-content-wallpaper {
     img {
       width: 280px;
