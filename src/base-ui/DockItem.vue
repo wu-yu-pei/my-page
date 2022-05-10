@@ -6,7 +6,7 @@
     @mousedown="showDelete"
     @contextmenu="(e) => e.preventDefault()"
   >
-    <img :src="source.icon" alt="" />
+    <img :src="source.icon" alt="" :style="{ borderRadius: `${store.radius}px` }" />
     <div class="dock-item-info">{{ source.des }}</div>
     <div
       :class="{ show: isShowDelete && hasDelete }"
@@ -21,6 +21,8 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+
+import useMainStore from '../store/index';
 
 const props = defineProps({
   source: {
@@ -38,6 +40,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['deleteThis']);
+
+const store = useMainStore();
 
 const isShowDelete = ref(false);
 const the = ref(null);

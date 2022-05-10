@@ -7,6 +7,7 @@ const useMainStore = defineStore('Main', {
       WallpaperImgUlr:
         localStorage.getItem('bg-image') || 'https://jiangly.com/_nuxt/img/banner_111.a6be22c.gif',
       blur: Number(localStorage.getItem('blur')) || 0,
+      radius: Number(localStorage.getItem('radius')) || 0,
     };
   },
 });

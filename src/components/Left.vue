@@ -17,15 +17,12 @@
       <!-- 背景模糊 -->
       <div class="header-left-content-bgfilter">
         <h3>背景模糊</h3>
-        <Slider
-          :value="store.blur"
-          @update="
-            (value) => {
-              store.blur = value;
-            }
-          "
-          width="100%"
-        ></Slider>
+        <Slider :value="store.blur" @update="updateBlur" width="100%"></Slider>
+      </div>
+      <!-- 圆角模糊 -->
+      <div class="header-left-content-bgfilter">
+        <h3>边缘圆角</h3>
+        <Slider :value="store.radius" @update="updateRadius" :max="10" width="100%"></Slider>
       </div>
     </div>
   </div>
@@ -68,6 +65,18 @@ const changeWallpaperUpload = () => {
 
     localStorage.setItem('bg-image', imgUrl);
   });
+};
+
+// blur change
+const updateBlur = (value: string) => {
+  store.blur = Number(value);
+  localStorage.setItem('blur', value);
+};
+
+// radius change
+const updateRadius = (value: string) => {
+  store.radius = Number(value);
+  localStorage.setItem('radius', value);
 };
 
 // 在..外点击

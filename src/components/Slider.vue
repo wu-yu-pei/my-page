@@ -3,7 +3,7 @@
     type="range"
     :value="value"
     min="0"
-    max="100"
+    :max="max"
     ref="inputRef"
     @input="change"
     id="range"
@@ -18,6 +18,10 @@ defineProps({
     type: Number,
     default: 10,
   },
+  max: {
+    type: Number,
+    default: 100,
+  },
   width: {
     type: String,
     default: '100%',
@@ -27,7 +31,6 @@ const emit = defineEmits(['update']);
 const inputRef = ref<HTMLInputElement>();
 
 const change = (e: any) => {
-  localStorage.setItem('blur', e.target.value);
   emit('update', e.target.value);
 };
 </script>
