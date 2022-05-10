@@ -98,7 +98,7 @@ const clearSourceValue = () => {
 .dock {
   width: 70%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 50px 20px;
   margin: 15px auto 0;
   flex-wrap: wrap;
