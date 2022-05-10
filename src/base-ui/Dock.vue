@@ -8,17 +8,32 @@
       @click="add"
       :has-delete="false"
     ></DockItem>
+
+    <Modle
+      v-model:newSource="newSource"
+      @sure="sure"
+      @cancle="cancle"
+      :showModle="showModle"
+    ></Modle>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, reactive, defineEmits, nextTick } from 'vue';
+
+import Modle from '../base-ui/Modle.vue';
 
 import DockItem from './DockItem.vue';
 import { Document } from '../config/bodyconfig';
 import imgUrl from '../assets/img/add.png';
 
-let source = ref();
+const source = ref();
+const newSource = reactive<any>({
+  newWork: '',
+  iconUrl: '',
+  des: '',
+});
+const showModle = ref(false);
 
 const emit = defineEmits(['add']);
 
@@ -37,20 +52,37 @@ const deleteDockItem = (index: any) => {
   localStorage.setItem('menu', JSON.stringify(source.value));
 };
 
-const add = () => {
-  const link = prompt('请输入网页地址');
-  if (!link) return;
-  const icon = prompt('请输入网页图标');
-  if (!icon) return;
-  const des = prompt('请输入网页描述');
-  if (!des) return;
-  const itemInfo = { link, icon, des };
+const sure = () => {
+  if (!newSource.newWork.trim() || !newSource.iconUrl.trim() || !newSource.des.trim()) {
+    showModle.value = false;
+    clearSourceValue();
+    return;
+  }
+  const itemInfo = { link: newSource.newWork, icon: newSource.iconUrl, des: newSource.des };
 
   const menu = JSON.parse(localStorage.getItem('menu')!);
   menu.push(itemInfo);
   localStorage.setItem('menu', JSON.stringify(menu));
 
   source.value = JSON.parse(localStorage.getItem('menu')!);
+
+  showModle.value = false;
+  clearSourceValue();
+};
+
+const cancle = () => {
+  showModle.value = false;
+  clearSourceValue();
+};
+
+const add = () => {
+  showModle.value = true;
+};
+
+const clearSourceValue = () => {
+  for (let key in newSource) {
+    newSource[key] = '';
+  }
 };
 </script>
 

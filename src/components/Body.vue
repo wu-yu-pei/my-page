@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 import Select from '../base-ui/Select.vue';
 import Dock from '../base-ui/Dock.vue';
