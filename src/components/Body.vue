@@ -19,7 +19,7 @@ const search = ref('');
 const searchOrigin = ref();
 
 if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
-  searchOrigin.value = localStorage.getItem('searchOrigin')![0];
+  searchOrigin.value = JSON.parse(localStorage.getItem('searchOrigin')!)[0];
 } else {
   searchOrigin.value = searchConfig[0];
 }
@@ -27,6 +27,8 @@ if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;
   if (!search.value.trim()) return;
+  console.log(searchOrigin);
+  debugger;
   location.href = searchOrigin.value.url + search.value;
 };
 
