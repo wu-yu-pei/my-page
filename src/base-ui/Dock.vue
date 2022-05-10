@@ -1,11 +1,11 @@
 <template>
   <!-- 拖拽区域 -->
   <draggable
-    v-model="source"
+    v-model="muenSource"
     group="people"
     class="dock"
-    @start="drag = true"
-    @end="drag = false"
+    @start="dragStart"
+    @end="dragEnd"
     item-key="link"
   >
     <template #item="{ element, index }">
@@ -24,16 +24,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, defineEmits } from 'vue';
+import { ref, reactive, defineEmits, computed } from 'vue';
 
 import Modle from '../base-ui/Modle.vue';
 import DockItem from './DockItem.vue';
 import Draggable from 'vuedraggable';
 
-import { Document } from '../config/bodyconfig';
+import useMainStore from '../store/index';
+
 import imgUrl from '../assets/img/add.png';
 
-const source = ref();
+const emit = defineEmits(['add']);
+const store = useMainStore();
+
 const newSource = reactive<any>({
   newWork: '',
   iconUrl: '',
@@ -41,23 +44,25 @@ const newSource = reactive<any>({
 });
 const showModle = ref(false);
 const drag = ref(false);
-const myArr = [1, 23, 5, 64];
-
-const emit = defineEmits(['add']);
-
-if (JSON.parse(localStorage.getItem('menu')!)) {
-  source.value = JSON.parse(localStorage.getItem('menu')!);
-} else {
-  source.value = Document;
-}
 
 // 存loaclStorage里面
-localStorage.setItem('menu', JSON.stringify(source.value));
+localStorage.setItem('menu', JSON.stringify(store.muenSource));
+
+// 持久化拖拽
+const muenSource = computed({
+  get() {
+    return store.muenSource;
+  },
+  set(newValue) {
+    localStorage.setItem('menu', JSON.stringify(newValue));
+    store.muenSource = newValue;
+  },
+});
 
 const deleteDockItem = (index: any) => {
-  if (source.value.length <= 1) return;
-  source.value.splice(index, 1);
-  localStorage.setItem('menu', JSON.stringify(source.value));
+  if (store.muenSource.length <= 1) return;
+  store.muenSource.splice(index, 1);
+  localStorage.setItem('menu', JSON.stringify(store.muenSource));
 };
 
 const sure = () => {
@@ -72,7 +77,7 @@ const sure = () => {
   menu.push(itemInfo);
   localStorage.setItem('menu', JSON.stringify(menu));
 
-  source.value = JSON.parse(localStorage.getItem('menu')!);
+  store.muenSource = JSON.parse(localStorage.getItem('menu')!);
 
   showModle.value = false;
   clearSourceValue();
@@ -91,6 +96,14 @@ const clearSourceValue = () => {
   for (let key in newSource) {
     newSource[key] = '';
   }
+};
+
+const dragStart = (Event: any) => {
+  drag.value = true;
+};
+
+const dragEnd = (Evnent: any) => {
+  drag.value = false;
 };
 </script>
 
