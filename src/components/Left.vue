@@ -12,6 +12,7 @@
           <button @click="changeWallpaperRandom">随机切换</button>
           <label for="file">本地壁纸</label>
           <input id="file" type="file" @click="changeWallpaperUpload" />
+          <button @click="setWallpaper">设置壁纸</button>
         </div>
       </div>
       <!-- 模糊尺寸 -->
@@ -65,6 +66,16 @@ const changeWallpaperUpload = () => {
 
     localStorage.setItem('bg-image', imgUrl);
   });
+};
+
+// 设置在线壁纸
+const setWallpaper = () => {
+  const imgUrl = prompt('请输入壁纸在线地址');
+
+  if (!imgUrl?.trim()) return;
+
+  store.$state.WallpaperImgUlr = imgUrl!;
+  localStorage.setItem('bg-image', imgUrl!);
 };
 
 // blur change
