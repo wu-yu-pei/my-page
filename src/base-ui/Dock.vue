@@ -1,13 +1,6 @@
 <template>
   <!-- 拖拽区域 -->
-  <draggable
-    v-model="(muenSource as any)"
-    group="people"
-    class="dock"
-    @start="dragStart"
-    @end="dragEnd"
-    item-key="link"
-  >
+  <draggable v-model="muenSource" class="dock" @start="dragStart" @end="dragEnd" item-key="link">
     <template #item="{ element, index }">
       <DockItem :source="element" @delete-this="deleteDockItem(index)"></DockItem>
     </template>
@@ -49,7 +42,7 @@ const drag = ref(false);
 localStorage.setItem('menu', JSON.stringify(store.muenSource));
 
 // 持久化拖拽
-const muenSource = computed({
+const muenSource = computed<any>({
   get() {
     return store.muenSource;
   },
