@@ -14,12 +14,12 @@
           <input id="file" type="file" @click="changeWallpaperUpload" />
         </div>
       </div>
-      <!-- 背景模糊 -->
+      <!-- 模糊尺寸 -->
       <div class="header-left-content-bgfilter">
         <h3>背景模糊</h3>
         <Slider :value="store.blur" @update="updateBlur" width="100%"></Slider>
       </div>
-      <!-- 圆角模糊 -->
+      <!-- 圆角尺寸 -->
       <div class="header-left-content-bgfilter">
         <h3>边缘圆角</h3>
         <Slider :value="store.radius" @update="updateRadius" :max="10" width="100%"></Slider>
@@ -35,16 +35,16 @@ import { onClickOutside } from '@vueuse/core';
 import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
 
-import Slider from './Slider.vue';
-
 import { getRandomImg, uploadImage } from '../api/index';
 import useMainStore from '../store';
 
+import Slider from './Slider.vue';
+
 const store = useMainStore();
 const target = ref(null);
-
 const isShow = ref(false);
 const wallpaperImgUrl = ref('');
+
 // 随机切换壁纸
 const changeWallpaperRandom = () => {
   const url = getRandomImg();
