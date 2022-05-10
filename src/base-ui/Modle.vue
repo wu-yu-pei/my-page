@@ -84,6 +84,8 @@ onClickOutside(target, () => {
         font-size: 16px;
         width: 80%;
         height: 40px;
+        border: none;
+        border-bottom: 1px solid #000;
         &:focus {
           outline: none;
         }
