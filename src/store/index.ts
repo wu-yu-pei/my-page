@@ -5,8 +5,7 @@ const useMainStore = defineStore('Main', {
   // arrow function recommended for full type inference
   state: () => {
     return {
-      WallpaperImgUlr:
-        localStorage.getItem('bg-image') || 'https://jiangly.com/_nuxt/img/banner_111.a6be22c.gif',
+      WallpaperImgUlr: localStorage.getItem('bg-image') || 'http://wuyupei.top:8888/upload/1652176775531.jpg',
       blur: Number(localStorage.getItem('blur')) || 0,
       radius: Number(localStorage.getItem('radius')) || 0,
       muenSource:
@@ -16,3 +15,5 @@ const useMainStore = defineStore('Main', {
 });
 
 export default useMainStore;
+
+// https://jiangly.com/_nuxt/img/banner_111.a6be22c.gif
