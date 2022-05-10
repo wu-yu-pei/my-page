@@ -27,8 +27,6 @@ if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;
   if (!search.value.trim()) return;
-  console.log(searchOrigin);
-  debugger;
   location.href = searchOrigin.value.url + search.value;
 };
 
