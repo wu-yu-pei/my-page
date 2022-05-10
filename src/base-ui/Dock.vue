@@ -1,7 +1,7 @@
 <template>
   <!-- 拖拽区域 -->
   <draggable
-    v-model="muenSource"
+    v-model="(muenSource as any)"
     group="people"
     class="dock"
     @start="dragStart"
