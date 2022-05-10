@@ -9,14 +9,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
 
 import Select from '../base-ui/Select.vue';
 import Dock from '../base-ui/Dock.vue';
 import { searchConfig } from '../config/search.config';
 
 const search = ref('');
-const searchOrigin = ref(searchConfig[0]);
+const searchOrigin = ref();
+
+if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
+  searchOrigin.value = localStorage.getItem('searchOrigin')![0];
+} else {
+  searchOrigin.value = searchConfig[0];
+}
 
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;

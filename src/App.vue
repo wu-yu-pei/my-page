@@ -11,8 +11,6 @@ import Body from './components/Body.vue';
 import useMainStore from './store/index';
 
 const state = useMainStore();
-
-console.log(state.WallpaperImgUlr);
 </script>
 
 <style>
