@@ -5,7 +5,7 @@ const useMainStore = defineStore('Main', {
   // arrow function recommended for full type inference
   state: () => {
     return {
-      WallpaperImgUlr: localStorage.getItem('bg-image') || 'http://wuyupei.top:8888/upload/1652176775531.jpg',
+      WallpaperImgUlr: localStorage.getItem('bg-image') || 'http://wuyupei.top:8888/upload/d7a2f64f6594e46e198dab001.jpg',
       blur: Number(localStorage.getItem('blur')) || 0,
       radius: Number(localStorage.getItem('radius')) || 0,
       muenSource:
