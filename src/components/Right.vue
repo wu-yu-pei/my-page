@@ -4,7 +4,7 @@
       <img @click="isShow = !isShow" :src="!isShow ? userUrl : cancleUrl" alt="" />
     </div>
     <div class="header-right-content" :class="{ show: isShow, hidder: !isShow }" ref="target">
-      <h3>暂未开发!敬请期待</h3>
+      <Login></Login>
     </div>
   </div>
 </template>
@@ -15,6 +15,8 @@ import { onClickOutside } from '@vueuse/core';
 
 import userUrl from '../assets/img/user.png';
 import cancleUrl from '../assets/img/cancle.png';
+
+import Login from './Login.vue';
 
 const target = ref(null);
 
