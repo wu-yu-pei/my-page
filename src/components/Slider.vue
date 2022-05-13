@@ -27,7 +27,9 @@ defineProps({
     default: '100%',
   },
 });
+
 const emit = defineEmits(['update']);
+
 const inputRef = ref<HTMLInputElement>();
 
 const change = (e: any) => {

@@ -6,7 +6,7 @@
     <div class="header-left-content" :class="{ show: isShow, hidder: !isShow }" ref="target">
       <!-- 壁纸 -->
       <div class="header-left-content-wallpaper">
-        <h3>壁纸</h3>
+        <h3>背景壁纸</h3>
         <img :src="store.$state.WallpaperImgUlr" alt="" />
         <div class="header-left-content-wallpaper-control">
           <button @click="changeWallpaperRandom">随机切换</button>
@@ -15,13 +15,20 @@
           <button @click="setWallpaper">设置壁纸</button>
         </div>
       </div>
+      <!-- 数据备份 -->
+      <div class="header-left-content-data">
+        <h3>数据备份</h3>
+        <button @click="outputData">导出数据</button>
+        <label for="files" @click="inputData">导入数据</label>
+        <input id="files" type="file" @click="changeWallpaperUpload" />
+      </div>
       <!-- 模糊尺寸 -->
       <div class="header-left-content-bgfilter">
         <h3>背景模糊</h3>
         <Slider :value="store.blur" @update="updateBlur" width="100%"></Slider>
       </div>
       <!-- 圆角尺寸 -->
-      <div class="header-left-content-bgfilter">
+      <div class="header-left-content-borderrad">
         <h3>边缘圆角</h3>
         <Slider :value="store.radius" @update="updateRadius" :max="10" width="100%"></Slider>
       </div>
@@ -32,6 +39,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import * as FileSaver from 'file-saver';
 
 import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
@@ -78,6 +86,52 @@ const setWallpaper = () => {
   localStorage.setItem('bg-image', imgUrl!);
 };
 
+// 导出数据
+const outputData = () => {
+  const menu = JSON.parse(localStorage.getItem('menu')!);
+  const blur = localStorage.getItem('blur');
+  const bgImage = localStorage.getItem('bg-image');
+  const radius = localStorage.getItem('radius');
+  const searchOri = JSON.parse(localStorage.getItem('searchOrigin')!);
+  const data = {
+    menu,
+    blur,
+    bgImage,
+    radius,
+    searchOri,
+  };
+  console.log(data);
+
+  const blob = new Blob([JSON.stringify(data) as any], { type: '' });
+  FileSaver.saveAs(blob, 'MyPageData.json');
+};
+
+// 导入数据
+const inputData = () => {
+  const fileEL: HTMLFormElement = document.querySelector('#files')!;
+
+  fileEL.addEventListener('change', async (e) => {
+    const file = fileEL.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function () {
+      const result = JSON.parse(this.result as string);
+      const { blur, radius, bgImage, menu, searchOri } = result;
+      // 回复数据
+      store.blur = blur;
+      store.radius = radius;
+      store.WallpaperImgUlr = bgImage;
+      store.muenSource = menu;
+
+      // 持久化数据
+      localStorage.setItem('blur', blur);
+      localStorage.setItem('radius', radius);
+      localStorage.setItem('bgImage', bgImage);
+      localStorage.setItem('menu', JSON.stringify(menu));
+    };
+  });
+};
+
 // blur change
 const updateBlur = (value: string) => {
   store.blur = Number(value);
@@ -112,7 +166,7 @@ onClickOutside(target, () => {
   z-index: 99;
   padding: 10px;
   & > div {
-    margin: 10px 0;
+    margin: 20px 0;
   }
   & > div > h3 {
     font-size: 22px;
@@ -143,6 +197,29 @@ onClickOutside(target, () => {
       input {
         display: none;
       }
+    }
+  }
+  .header-left-content-data {
+    h3 {
+      margin: 0 0 15px 0;
+    }
+    button,
+    label {
+      border: none;
+      padding: 5px 10px;
+      background-color: #fff;
+      margin-right: 10px;
+      cursor: pointer;
+      &:hover {
+        background: #000;
+        color: #fff;
+      }
+    }
+    label {
+      font-size: 14px;
+    }
+    input {
+      display: none;
     }
   }
 }
