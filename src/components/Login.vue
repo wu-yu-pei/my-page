@@ -2,9 +2,8 @@
   <div class="user">
     <div class="user-info">
       <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" />
-      <div class="user-info-name">Wuyupei</div>
+      <div class="user-info-name">Welcome You</div>
     </div>
-    <h3>后期接入微信登录, 备份数据.</h3>
     <!-- <div class="user-login">
       <div class="user-login-panel">
         <h3>登录</h3>

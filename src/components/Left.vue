@@ -154,6 +154,7 @@ const shareData = async () => {
 // input ShareData
 const inputShareData = async () => {
   const url = prompt('请输入url')!;
+  if (!url) return;
   const res = await getShareData(url);
 
   useInpuData(res, store);
