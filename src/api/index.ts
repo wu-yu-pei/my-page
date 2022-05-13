@@ -16,7 +16,7 @@ export async function uploadImage(formData: any) {
 export async function getShareDataUrl(formData: any) {
   let res;
   try {
-    res = await axios.post('http://localhost:8888/upload', formData);
+    res = await axios.post('/upload', formData);
   } catch (error) {
     return 'error';
   }
