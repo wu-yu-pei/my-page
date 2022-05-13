@@ -52,12 +52,14 @@ const muenSource = computed<any>({
   },
 });
 
+// delete item
 const deleteDockItem = (index: any) => {
   if (store.muenSource.length <= 1) return;
   store.muenSource.splice(index, 1);
   localStorage.setItem('menu', JSON.stringify(store.muenSource));
 };
 
+// sure add item
 const sure = () => {
   if (!newSource.newWork.trim() || !newSource.iconUrl.trim() || !newSource.des.trim()) {
     showModle.value = false;
@@ -76,25 +78,30 @@ const sure = () => {
   clearSourceValue();
 };
 
+// cancle add item
 const cancle = () => {
   showModle.value = false;
   clearSourceValue();
 };
 
+// show model
 const add = () => {
   showModle.value = true;
 };
 
+// clear ole value
 const clearSourceValue = () => {
   for (let key in newSource) {
     newSource[key] = '';
   }
 };
 
+// drag start
 const dragStart = (Event: any) => {
   drag.value = true;
 };
 
+// darg end
 const dragEnd = (Evnent: any) => {
   drag.value = false;
 };

@@ -22,7 +22,7 @@ const target = ref(null);
 
 const isShow = ref(false);
 
-// 在..外点击
+// click it in out
 onClickOutside(target, () => {
   isShow.value = false;
 });

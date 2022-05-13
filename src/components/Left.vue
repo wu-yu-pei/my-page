@@ -54,7 +54,7 @@ const target = ref(null);
 const isShow = ref(false);
 const wallpaperImgUrl = ref('');
 
-// 随机切换壁纸
+// change wallpaper readom
 const changeWallpaperRandom = () => {
   const url = getRandomImg();
   wallpaperImgUrl.value = url;
@@ -62,7 +62,7 @@ const changeWallpaperRandom = () => {
   localStorage.setItem('bg-image', url);
 };
 
-// 上传本地壁纸
+//  upload local wallpaper
 const changeWallpaperUpload = () => {
   const file: HTMLFormElement = document.querySelector('#file')!;
 
@@ -76,7 +76,7 @@ const changeWallpaperUpload = () => {
   });
 };
 
-// 设置在线壁纸
+// set online wallpaper
 const setWallpaper = () => {
   const imgUrl = prompt('请输入壁纸在线地址');
 
@@ -86,7 +86,7 @@ const setWallpaper = () => {
   localStorage.setItem('bg-image', imgUrl!);
 };
 
-// 导出数据
+// output data
 const outputData = () => {
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
@@ -106,7 +106,7 @@ const outputData = () => {
   FileSaver.saveAs(blob, 'MyPageData.json');
 };
 
-// 导入数据
+// input data
 const inputData = () => {
   const fileEL: HTMLFormElement = document.querySelector('#files')!;
 

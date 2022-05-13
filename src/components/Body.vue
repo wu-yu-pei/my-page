@@ -13,28 +13,33 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 import Select from '../base-ui/Select.vue';
 import Dock from '../base-ui/Dock.vue';
+
 import { searchConfig } from '../config/search.config';
 
 const search = ref('');
 const searchOrigin = ref();
 const inputRef = ref<InstanceType<typeof HTMLElement>>();
 
+// init searchOrg
 if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
   searchOrigin.value = JSON.parse(localStorage.getItem('searchOrigin')!)[0];
 } else {
   searchOrigin.value = searchConfig[0];
 }
 
+// click search
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;
   if (!search.value.trim()) return;
   location.href = searchOrigin.value.url + search.value;
 };
 
+// searchOrigin change
 const searchOriginChange = (Origin: any) => {
   searchOrigin.value = Origin;
 };
 
+// auto focus
 onMounted(() => {
   search.value = '';
   // 自动聚焦
@@ -42,6 +47,7 @@ onMounted(() => {
   document.addEventListener('keydown', handleSearch);
 });
 
+// remove event
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleSearch);
 });
