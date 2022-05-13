@@ -3,7 +3,7 @@
     :href="source.link"
     class="dock-item"
     ref="the"
-    target="_blank"
+    :target="target"
     @mousedown="showDelete"
     @contextmenu="(e) => e.preventDefault()"
   >
@@ -37,6 +37,10 @@ const props = defineProps({
   hasDelete: {
     type: Boolean,
     default: true,
+  },
+  target: {
+    type: String,
+    default: '_blank',
   },
 });
 

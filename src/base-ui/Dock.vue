@@ -8,6 +8,7 @@
       <DockItem
         :source="{ link: '#', icon: imgUrl, des: '添加快捷' }"
         @click="add"
+        target="_self"
         :has-delete="false"
       ></DockItem>
     </template>
