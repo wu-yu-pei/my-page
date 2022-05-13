@@ -115,6 +115,6 @@ const dragEnd = (Evnent: any) => {
   margin: 15px auto 0;
   flex-wrap: wrap;
   box-sizing: border-box;
-  padding-left: 37px;
+  padding-left: 43px;
 }
 </style>
