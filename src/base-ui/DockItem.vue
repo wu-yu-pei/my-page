@@ -3,6 +3,7 @@
     :href="source.link"
     class="dock-item"
     ref="the"
+    target="_blank"
     @mousedown="showDelete"
     @contextmenu="(e) => e.preventDefault()"
   >
