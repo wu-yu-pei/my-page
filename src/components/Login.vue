@@ -33,19 +33,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { register, getCode } from '../api/index';
-register('wuyupei', '19781209Wyp', '495174699@qq.com');
+// import { ref } from 'vue';
+// import { register, getCode } from '../api/index';
+// register('wuyupei', '19781209Wyp', '495174699@qq.com');
 
-const code = ref();
+// const code = ref();
 
-// get code
-function getVerCode() {
-  getCode().then((res) => {
-    code.value = res;
-  });
-}
-getVerCode();
+// // get code
+// function getVerCode() {
+//   getCode().then((res) => {
+//     code.value = res;
+//   });
+// }
+// getVerCode();
 </script>
 
 <style scoped lang="less">

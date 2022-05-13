@@ -22,6 +22,12 @@
         <label for="files" @click="inputData">导入数据</label>
         <input id="files" type="file" @click="changeWallpaperUpload" />
       </div>
+      <!-- 数据分享 -->
+      <div class="header-left-content-data">
+        <h3>数据共享</h3>
+        <button @click="shareData">分享数据</button>
+        <button @click="inputShareData">链接导入</button>
+      </div>
       <!-- 模糊尺寸 -->
       <div class="header-left-content-bgfilter">
         <h3>背景模糊</h3>
@@ -44,7 +50,8 @@ import * as FileSaver from 'file-saver';
 import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
 
-import { getRandomImg, uploadImage } from '../api/index';
+import { getRandomImg, uploadImage, getShareDataUrl, getShareData } from '../api/index';
+import useInpuData from '../hooks/useInpuData';
 import useMainStore from '../store';
 
 import Slider from './Slider.vue';
@@ -100,7 +107,6 @@ const outputData = () => {
     radius,
     searchOri,
   };
-  console.log(data);
 
   const blob = new Blob([JSON.stringify(data) as any], { type: '' });
   FileSaver.saveAs(blob, 'MyPageData.json');
@@ -114,24 +120,44 @@ const inputData = () => {
     const file = fileEL.files[0];
     const reader = new FileReader();
     reader.readAsText(file);
+
     reader.onload = function () {
       const result = JSON.parse(this.result as string);
-      const { blur, radius, bgImage, menu, searchOri } = result;
-      // 回复数据
-      store.blur = blur;
-      store.radius = radius;
-      store.WallpaperImgUlr = bgImage;
-      store.muenSource = menu;
-
-      // 持久化数据
-      localStorage.setItem('blur', blur);
-      localStorage.setItem('radius', radius);
-      localStorage.setItem('bgImage', bgImage);
-      localStorage.setItem('menu', JSON.stringify(menu));
+      useInpuData(result, store);
     };
   });
 };
 
+// share data
+const shareData = async () => {
+  const menu = JSON.parse(localStorage.getItem('menu')!);
+  const blur = localStorage.getItem('blur');
+  const bgImage = localStorage.getItem('bg-image');
+  const radius = localStorage.getItem('radius');
+  const searchOri = JSON.parse(localStorage.getItem('searchOrigin')!);
+  const data = {
+    menu,
+    blur,
+    bgImage,
+    radius,
+    searchOri,
+  };
+
+  const file = new File([JSON.stringify(data) as any], 'a.json', {});
+  const formdata = new FormData();
+  formdata.append('file', file);
+
+  const url = await getShareDataUrl(formdata);
+  alert(url);
+};
+
+// input ShareData
+const inputShareData = async () => {
+  const url = prompt('请输入url')!;
+  const res = await getShareData(url);
+
+  useInpuData(res, store);
+};
 // blur change
 const updateBlur = (value: string) => {
   store.blur = Number(value);
