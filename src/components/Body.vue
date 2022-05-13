@@ -72,6 +72,7 @@ onBeforeUnmount(() => {
       border-radius: 5px;
       font-size: 20px;
       padding-left: 5px;
+      margin-right: 17px;
       &:focus {
         border: 1px solid #fccc;
         outline: none;

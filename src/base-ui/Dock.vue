@@ -111,9 +111,10 @@ const dragEnd = (Evnent: any) => {
 .dock {
   width: 70%;
   display: flex;
-  /* justify-content: space-between; */
-  gap: 50px 20px;
+  gap: 50px 18px;
   margin: 15px auto 0;
   flex-wrap: wrap;
+  box-sizing: border-box;
+  padding-left: 37px;
 }
 </style>
