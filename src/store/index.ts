@@ -1,16 +1,9 @@
 import { defineStore } from 'pinia';
 import { Document } from '../config/bodyconfig';
 
-export interface MainState {
-  WallpaperImgUlr: string;
-  blur: number;
-  radius: number;
-  muenSource: object;
-}
-
 const useMainStore = defineStore('Main', {
   // arrow function recommended for full type inference
-  state: (): MainState => {
+  state: () => {
     return {
       WallpaperImgUlr:
         localStorage.getItem('bgImage') || 'http://wuyupei.top:8888/upload/default.jpg',

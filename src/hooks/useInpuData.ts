@@ -1,14 +1,4 @@
-import { MainState } from '../store/index';
-
-interface Data {
-  blur: number;
-  radius: number;
-  bgImage: string;
-  menu: object;
-  searchOri?: object;
-}
-
-export default (data: Data, store: MainState) => {
+export default (data: any, store: any) => {
   const { blur, radius, bgImage, menu, searchOri } = data;
   // 回复数据
   store.blur = blur;
