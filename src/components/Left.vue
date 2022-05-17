@@ -97,7 +97,7 @@ const setWallpaper = () => {
 const outputData = () => {
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
-  const bgImage = localStorage.getItem('bg-image');
+  const bgImage = localStorage.getItem('bgImage');
   const radius = localStorage.getItem('radius');
   const searchOri = JSON.parse(localStorage.getItem('searchOrigin')!);
   const data = {
@@ -132,7 +132,9 @@ const inputData = () => {
 const shareData = async () => {
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
-  const bgImage = localStorage.getItem('bg-image');
+  const bgImage = localStorage.getItem('bgImage');
+  console.log(bgImage);
+
   const radius = localStorage.getItem('radius');
   const searchOri = JSON.parse(localStorage.getItem('searchOrigin')!);
   const data = {
