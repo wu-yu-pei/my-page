@@ -38,6 +38,14 @@ export async function getShareData(url: string) {
   return res!.data;
 }
 
+// 关键词
+export async function getKeyWord(keyword: string) {
+  let res = await axios.get(`/keyword`, {
+    params: { keyword },
+  });
+  return res.data;
+}
+
 // 登录注册
 // export async function register(account: string, password: string, mail: string) {
 //   let res = await axios.post('/register', { account, password, mail });

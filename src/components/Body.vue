@@ -2,7 +2,27 @@
   <div class="body">
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
-      <input v-model="search" type="text" ref="inputRef" />
+      <div class="input" ref="divRef">
+        <input
+          v-model="search"
+          type="text"
+          ref="inputRef"
+          @input="handleInput"
+          @focus="handleFocus"
+        />
+        <div class="more" :class="{ show: keyword.length !== 0 || moreIsshow }">
+          <div v-if="moreIsshow" class="loading">
+            <div class="loadingio-spinner-eclipse-td57dbpe2wr">
+              <div class="ldio-3uhj7om3fdq">
+                <div></div>
+              </div>
+            </div>
+          </div>
+          <template v-for="(item, index) in keyword" :key="index">
+            <KeyWordItem :keyword="item" @keyword-item-click="hendleKeywordItemClick"></KeyWordItem>
+          </template>
+        </div>
+      </div>
     </div>
     <Dock></Dock>
   </div>
@@ -10,15 +30,22 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useDebounceFn, onClickOutside } from '@vueuse/core';
 
 import Select from '../base-ui/Select.vue';
 import Dock from '../base-ui/Dock.vue';
 
+import { getKeyWord } from '../api/index';
+
 import { searchConfig } from '../config/search.config';
+import KeyWordItem from '../base-ui/KeyWordItem.vue';
 
 const search = ref('');
 const searchOrigin = ref();
 const inputRef = ref<InstanceType<typeof HTMLElement>>();
+const divRef = ref<InstanceType<typeof HTMLElement>>();
+const keyword = ref([]);
+const moreIsshow = ref(false);
 
 // init searchOrg
 if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
@@ -27,7 +54,7 @@ if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
   searchOrigin.value = searchConfig[0];
 }
 
-// click search
+// click search useDebounceFn
 const handleSearch = (e: any) => {
   if (e.code !== 'Enter') return;
   if (!search.value.trim()) return;
@@ -38,6 +65,42 @@ const handleSearch = (e: any) => {
 const searchOriginChange = (Origin: any) => {
   searchOrigin.value = Origin;
 };
+
+// handle input
+const handleInput = useDebounceFn(async (e: any) => {
+  const word = e.target.value;
+
+  if (!word.trim()) {
+    return (keyword.value = []);
+  }
+
+  moreIsshow.value = true;
+  keyword.value = [];
+  const res = await getKeyWord(word);
+  keyword.value = res.keyword;
+  moreIsshow.value = false;
+}, 500);
+
+const handleFocus = async (e: any) => {
+  const word = e.target.value;
+  if (!word.trim()) {
+    return (keyword.value = []);
+  }
+  keyword.value = [];
+  moreIsshow.value = true;
+  const res = await getKeyWord(word);
+  keyword.value = res.keyword;
+  moreIsshow.value = false;
+};
+
+const hendleKeywordItemClick = (res: any) => {
+  location.href = searchOrigin.value.url + res;
+};
+
+onClickOutside(divRef, () => {
+  keyword.value = [];
+  moreIsshow.value = false;
+});
 
 // auto focus
 onMounted(() => {
@@ -65,22 +128,89 @@ onBeforeUnmount(() => {
     width: 70%;
     margin: 0 auto 30px;
     outline: none;
-    input {
+    .input {
+      position: relative;
       flex: 6;
-      height: 3rem;
-      border: 1px solid #fccc;
-      border-radius: 5px;
-      font-size: 20px;
-      padding-left: 5px;
-      margin-right: 17px;
-      &:focus {
+      input {
+        width: 100%;
+        height: 3rem;
         border: 1px solid #fccc;
-        outline: none;
+        border-radius: 5px;
+        font-size: 20px;
+        padding-left: 5px;
+        margin-right: 17px;
+        &:focus {
+          border: 1px solid #fccc;
+          outline: none;
+        }
+      }
+      .more {
+        position: absolute;
+        display: none;
+        padding: 10px 0px 10px 8px;
+        width: 100%;
+        min-height: 56px;
+        top: 56px;
+        left: 0;
+        background-color: #fff;
+        z-index: 90;
+        border-radius: 5px;
+        .loading {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-self: center;
+        }
+      }
+      .show {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
     }
     .select {
       flex: 1;
     }
   }
+}
+@keyframes ldio-3uhj7om3fdq {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.ldio-3uhj7om3fdq div {
+  position: absolute;
+  animation: ldio-3uhj7om3fdq 1s linear infinite;
+  width: 74px;
+  height: 74px;
+  top: 13px;
+  left: 13px;
+  border-radius: 50%;
+  box-shadow: 0 2px 0 0 #5c26ad;
+  transform-origin: 37px 38px;
+}
+.loadingio-spinner-eclipse-td57dbpe2wr {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  overflow: hidden;
+  background: #fdfdfd;
+}
+.ldio-3uhj7om3fdq {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.3);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-3uhj7om3fdq div {
+  box-sizing: content-box;
 }
 </style>
