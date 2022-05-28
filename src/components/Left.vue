@@ -38,6 +38,10 @@
         <h3>边缘圆角</h3>
         <Slider :value="store.radius" @update="updateRadius" :max="10" width="100%"></Slider>
       </div>
+      <div class="header-left-content-data">
+        <h3>微信备份</h3>
+        <button @click="beifen">备份</button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,7 +54,7 @@ import * as FileSaver from 'file-saver';
 import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
 
-import { getRandomImg, uploadImage, getShareDataUrl, getShareData } from '../api/index';
+import { getRandomImg, uploadImage, getShareDataUrl, getShareData, beifenData } from '../api/index';
 import useInpuData from '../hooks/useInpuData';
 import useMainStore from '../store';
 
@@ -173,6 +177,16 @@ const updateRadius = (value: string) => {
   localStorage.setItem('radius', value);
 };
 
+const beifen = async () => {
+  const data = {
+    bgImage: localStorage.getItem('bgImage'),
+    blur: localStorage.getItem('blur'),
+    redius: localStorage.getItem('radius'),
+    menu: localStorage.getItem('menu'),
+    userId: localStorage.getItem('userId'),
+  };
+  const res = await beifenData(data);
+};
 // 在..外点击
 onClickOutside(target, () => {
   isShow.value = false;

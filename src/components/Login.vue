@@ -23,8 +23,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { getQr, check } from '../api/index';
+import { getQr, check, getUserInfo } from '../api/index';
 import loadingImg from '../assets/img/loading.svg';
+import useMainStore from '../store';
 
 const qrEl = ref<HTMLImageElement>()!;
 const userImgEl = ref<HTMLImageElement>()!;
@@ -32,7 +33,9 @@ const outShow = ref(false);
 const qrShow = ref(false);
 const isLogin = ref(false);
 const scene_id = ref(null);
-const userName = ref('');
+const userName = ref(localStorage.getItem('userName')) || ref('');
+const mainStore = useMainStore();
+const timerOut = ref();
 
 const userId = localStorage.getItem('userId');
 
@@ -51,27 +54,44 @@ const getQrImg = async () => {
   qrEl.value!.setAttribute('src', res.data.url);
   scene_id.value = res.data.scene_id;
   // 过期后显示过期
-  setTimeout(() => {
+  timerOut.value = setTimeout(() => {
     outShow.value = true;
   }, 1000 * 120);
   // 轮询
   const timer = setInterval(async () => {
     let res = await check(scene_id.value);
+    // 登录成功
     if (res.data.status === 1) {
       // 储存用户信息
       localStorage.setItem('userId', res.data.userInfo.openId);
-      //
+      localStorage.setItem('userName', res.data.userInfo.userName);
+
       isLogin.value = true;
       userName.value = res.data.userInfo.userName;
       userImgEl.value?.setAttribute('src', res.data.userInfo.userImg);
 
       clearInterval(timer);
+      // 获取用户个人信息及配置信息
+      const result = await getUserInfo(res.data.userInfo.openId);
+      const { bgImage, blur, redius, menu } = result.data;
+
+      mainStore.WallpaperImgUlr = bgImage;
+      mainStore.blur = blur;
+      mainStore.radius = redius;
+      mainStore.muenSource = menu;
+
+      localStorage.setItem('bgImage', bgImage);
+      localStorage.setItem('blur', blur);
+      localStorage.setItem('radius', redius);
+      localStorage.setItem('menu', JSON.stringify(menu));
     }
   }, 2000);
 };
 
 const out = async () => {
-  isLogin.value = false
+  isLogin.value = false;
+  qrShow.value = false;
+  clearTimeout(timerOut.value);
   localStorage.removeItem('userId');
 };
 </script>
