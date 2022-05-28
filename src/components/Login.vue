@@ -1,58 +1,67 @@
 <template>
   <div class="user">
     <div class="user-info">
-      <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" />
-      <div class="user-info-name">Welcome You</div>
+      <template v-if="false">
+        <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" />
+        <div class="user-info-name">Welcome You</div>
+      </template>
+      <template v-else>
+        <img src="../assets/img/qr.png" alt="" @click="getQrImg" />
+        <div class="user-info-name">点击左侧,微信扫码登录</div>
+        <img src="" alt="" class="qr" ref="qrEl" :style="{ display: qrShow ? 'block' : 'none' }" />
+        <img
+          src="../assets/img/out.png"
+          alt=""
+          class="out"
+          :style="{ display: outShow ? 'block' : 'none' }"
+        />
+      </template>
     </div>
-    <!-- <div class="user-login">
-      <div class="user-login-panel">
-        <h3>登录</h3>
-        <div class="login">
-          <p><span>账 号:</span> <input type="text" name="" id="" /></p>
-          <p><span>密 码:</span> <input type="password" name="" id="" /></p>
-          <button>登录</button>
-        </div>
-        <h3>注册</h3>
-        <div class="register">
-          <p><span>账 号:</span> <input type="text" name="" id="" /></p>
-          <p><span>密 码:</span> <input type="password" name="" id="" /></p>
-          <p><span>邮 箱:</span> <input type="text" name="" id="" /></p>
-          <p>
-            <span>验证码:</span> <input type="text" name="" id="" /><span
-              class="code"
-              @click="getVerCode"
-              v-html="code"
-            ></span>
-          </p>
-          <button>注册</button>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue';
-// import { register, getCode } from '../api/index';
-// register('wuyupei', '19781209Wyp', '495174699@qq.com');
+import { ref } from 'vue';
+import { getQr, check } from '../api/index';
+import loadingImg from '../assets/img/loading.svg';
 
-// const code = ref();
+const qrEl = ref<HTMLImageElement>()!;
+const outShow = ref(false);
+const qrShow = ref(false);
+const scene_id = ref(null);
+const getQrImg = async () => {
+  // 显示二维码
+  outShow.value = false;
+  //
+  qrShow.value = true;
+  qrEl.value!.setAttribute('src', loadingImg);
+  let res = await getQr();
+  qrEl.value!.setAttribute('src', res.data.url);
+  scene_id.value = res.data.scene_id;
+  // 过期后显示过期
+  setTimeout(() => {
+    outShow.value = true;
+  }, 1000 * 60);
+  // 轮询
+  const timer = setInterval(async () => {
+    let res = await check(scene_id.value);
+    if (res.data.status === 1) {
+      console.log('校验成功');
 
-// // get code
-// function getVerCode() {
-//   getCode().then((res) => {
-//     code.value = res;
-//   });
-// }
-// getVerCode();
+      clearInterval(timer);
+    }
+  }, 1000);
+};
 </script>
 
 <style scoped lang="less">
 .user {
   width: 100%;
   .user-info {
+    position: relative;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     height: 50px;
     gap: 0 50px;
     margin: 10px 0;
@@ -62,67 +71,24 @@
       border: 1px solid #000;
       border-radius: 5px;
     }
-  }
-  .user-login {
-    margin-top: 10px;
-    .user-login-panel {
-      > h3 {
-        margin: 10px 0;
-        font-size: 22px;
-        font-weight: normal;
-      }
-      > div {
-        width: 100%;
-        background-color: #fff;
-        overflow: hidden;
-        p {
-          margin: 5px 0;
-          span {
-            display: inline-block;
-            width: 60px;
-            line-height: 32px;
-          }
-          .code {
-            width: 100px;
-            margin-left: 10px;
-            height: 32px;
-          }
-          input {
-            padding: 0 5px;
-            outline: none;
-            height: 30px;
-            border: 1px solid #000;
-          }
-        }
-        button {
-          border: none;
-          padding: 10px;
-          width: 100%;
-          background-color: #fff;
-          margin-right: 10px;
-          text-align: center;
-          cursor: pointer;
-          &:hover {
-            background: #000;
-            color: #fff;
-          }
-        }
-      }
+    .qr {
+      margin-top: 15px;
+      width: 270px;
+      height: 270px;
+    }
+    .out {
+      top: 112px;
+      left: 38px;
+      width: 200px;
+      height: 172px;
+      position: absolute;
     }
   }
-}
-#app
-  > div
-  > div
-  > div.header
-  > div.header-right
-  > div.header-right-content.show
-  > div
-  > div.user-login
-  > div
-  > div.register
-  > p:nth-child(4)
-  > input[type='text'] {
-  width: 50px;
+  .user-login {
+    h3 {
+      font-size: 22px;
+      font-weight: normal;
+    }
+  }
 }
 </style>

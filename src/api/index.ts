@@ -1,6 +1,6 @@
 import axios from 'axios';
 const devBaseUrl = 'http://localhost:8888';
-const proBaseUrl = 'http://wuyupei.top:8888';
+const proBaseUrl = 'http://127.0.0.1:8888' || 'http://wuyupei.top:8888';
 
 axios.defaults.baseURL = proBaseUrl;
 
@@ -46,6 +46,20 @@ export async function getKeyWord(keyword: string) {
   return res.data;
 }
 
+// 二维码
+export async function getQr() {
+  let res = await axios.get('/qr');
+  return res;
+}
+
+export async function check(scene_id: any) {
+  let res = await axios.get('/check', {
+    params: {
+      scene_id,
+    },
+  });
+  return res;
+}
 // 登录注册
 // export async function register(account: string, password: string, mail: string) {
 //   let res = await axios.post('/register', { account, password, mail });
