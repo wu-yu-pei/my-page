@@ -1,9 +1,10 @@
 <template>
   <div class="user">
     <div class="user-info">
-      <template v-if="false">
-        <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" />
-        <div class="user-info-name">Welcome You</div>
+      <template v-if="isLogin">
+        <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" ref="userImgEl" />
+        <div class="user-info-name">{{ userName }}</div>
+        <button @click="out">退出登录</button>
       </template>
       <template v-else>
         <img src="../assets/img/qr.png" alt="" @click="getQrImg" />
@@ -26,9 +27,20 @@ import { getQr, check } from '../api/index';
 import loadingImg from '../assets/img/loading.svg';
 
 const qrEl = ref<HTMLImageElement>()!;
+const userImgEl = ref<HTMLImageElement>()!;
 const outShow = ref(false);
 const qrShow = ref(false);
+const isLogin = ref(false);
 const scene_id = ref(null);
+const userName = ref('');
+
+const userId = localStorage.getItem('userId');
+
+if (userId) {
+  // 去获取用户信息
+  isLogin.value = true;
+}
+
 const getQrImg = async () => {
   // 显示二维码
   outShow.value = false;
@@ -41,16 +53,26 @@ const getQrImg = async () => {
   // 过期后显示过期
   setTimeout(() => {
     outShow.value = true;
-  }, 1000 * 60);
+  }, 1000 * 120);
   // 轮询
   const timer = setInterval(async () => {
     let res = await check(scene_id.value);
     if (res.data.status === 1) {
-      console.log('校验成功');
+      // 储存用户信息
+      localStorage.setItem('userId', res.data.userInfo.openId);
+      //
+      isLogin.value = true;
+      userName.value = res.data.userInfo.userName;
+      userImgEl.value?.setAttribute('src', res.data.userInfo.userImg);
 
       clearInterval(timer);
     }
-  }, 1000);
+  }, 2000);
+};
+
+const out = async () => {
+  isLogin.value = false
+  localStorage.removeItem('userId');
 };
 </script>
 
@@ -70,6 +92,15 @@ const getQrImg = async () => {
       height: 50px;
       border: 1px solid #000;
       border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      height: 40px;
+      background-color: #000;
+      color: #fff;
+      margin: 10px 0;
+      letter-spacing: 5px;
+      cursor: pointer;
     }
     .qr {
       margin-top: 15px;
