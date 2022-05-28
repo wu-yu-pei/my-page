@@ -178,6 +178,10 @@ const updateRadius = (value: string) => {
 };
 
 const beifen = async () => {
+  if (!localStorage.getItem('userId')) {
+    alert('未登录');
+    return;
+  }
   const data = {
     bgImage: localStorage.getItem('bgImage'),
     blur: localStorage.getItem('blur'),
@@ -186,6 +190,11 @@ const beifen = async () => {
     userId: localStorage.getItem('userId'),
   };
   const res = await beifenData(data);
+  if (res.data.length === 1) {
+    alert('备份成功');
+  } else {
+    alert('备份失败');
+  }
 };
 // 在..外点击
 onClickOutside(target, () => {
