@@ -73,12 +73,13 @@ const getQrImg = async () => {
       clearInterval(timer);
       // 获取用户个人信息及配置信息
       const result = await getUserInfo(res.data.userInfo.openId);
-      const { bgImage, blur, redius, menu } = result.data;
+      const { bgImage, blur, redius, menu, openId } = result.data;
 
       mainStore.WallpaperImgUlr = bgImage;
       mainStore.blur = blur;
       mainStore.radius = redius;
       mainStore.muenSource = menu;
+      mainStore.userId = openId;
 
       localStorage.setItem('bgImage', bgImage);
       localStorage.setItem('blur', blur);
@@ -104,7 +105,8 @@ const out = async () => {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    height: 50px;
+    // height: 50px;
+    height: 100%;
     gap: 0 50px;
     margin: 10px 0;
     img {

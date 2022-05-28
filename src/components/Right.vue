@@ -5,6 +5,7 @@
     </div>
     <div class="header-right-content" :class="{ show: isShow, hidder: !isShow }" ref="target">
       <Login></Login>
+      <Chect></Chect>
     </div>
   </div>
 </template>
@@ -17,6 +18,7 @@ import userUrl from '../assets/img/user.png';
 import cancleUrl from '../assets/img/cancle.png';
 
 import Login from './Login.vue';
+import Chect from './Chect.vue';
 
 const target = ref(null);
 
@@ -34,6 +36,8 @@ onClickOutside(target, () => {
   color: #000;
 }
 .header-right-content {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   box-sizing: border-box;
   bottom: calc(43px - 100vh);

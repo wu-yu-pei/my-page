@@ -70,7 +70,7 @@ const changeWallpaperRandom = () => {
   const url = getRandomImg();
   wallpaperImgUrl.value = url;
   store.$state.WallpaperImgUlr = url;
-  localStorage.setItem('bg-image', url);
+  localStorage.setItem('bgImage', url);
 };
 
 //  upload local wallpaper
@@ -83,7 +83,7 @@ const changeWallpaperUpload = () => {
     const imgUrl = await uploadImage(formData);
     store.$state.WallpaperImgUlr = imgUrl;
 
-    localStorage.setItem('bg-image', imgUrl);
+    localStorage.setItem('bgImage', imgUrl);
   });
 };
 
@@ -94,7 +94,7 @@ const setWallpaper = () => {
   if (!imgUrl?.trim()) return;
 
   store.$state.WallpaperImgUlr = imgUrl!;
-  localStorage.setItem('bg-image', imgUrl!);
+  localStorage.setItem('bgImage', imgUrl!);
 };
 
 // output data
