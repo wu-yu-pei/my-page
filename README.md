@@ -21,9 +21,9 @@
 - [x] 登录(微信扫码)
 
 - [x] 登录后群聊
-      ![](./userA.png)
-      ![](./userB.png)
-      ![](./userC.png)
+      ![A](https://github.com/wu-yu-pei/my-page/edit/feature/userA.png)
+      ![B](https://github.com/wu-yu-pei/my-page/edit/feature/userB.png)
+      ![C](https://github.com/wu-yu-pei/my-page/edit/feature/userC.png)
 
 #### 我的分享链接
 
