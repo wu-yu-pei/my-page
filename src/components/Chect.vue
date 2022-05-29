@@ -1,7 +1,7 @@
 <template>
   <div class="chect">
     <h3>聊天大厅</h3>
-    <div class="chect-content">
+    <div class="chect-content" ref="contentEl">
       <div v-for="(item, index) in messages">
         <div class="self" v-if="item.from == self">
           <img :src="item.img" alt="" />
@@ -21,24 +21,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, nextTick } from 'vue';
 import SocketIO from 'socket.io-client';
 import useMainStore from '../store';
 import { getCheat } from '../api/index';
 
 const messages = ref<any[]>([]);
+const contentEl = ref<InstanceType<typeof HTMLDivElement>>();
 const inputValue = ref('');
-getCheat().then((res) => {
-  console.log(res);
 
+getCheat().then(async (res) => {
   messages.value = res.data;
+  await nextTick();
+  contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 });
 
 const mainStroe = useMainStore();
 const state = toRefs(mainStroe);
 
 const self = state.userId;
-console.log(self);
 
 const socketOptions = {
   autoConnect: true, // 自动连接
@@ -51,7 +52,7 @@ socket.on('guangbo', (data: any) => {
   messages.value.push(data);
 });
 
-const send = () => {
+const send = async () => {
   if (!self.value) {
     inputValue.value = '';
     return alert('请使用微信登录!');
@@ -69,6 +70,8 @@ const send = () => {
 
   socket.emit('message', message);
   inputValue.value = '';
+  await nextTick();
+  contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 };
 </script>
 
@@ -88,9 +91,28 @@ const send = () => {
     border: 1px solid #000;
     border-bottom: none;
     overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-all;
     padding: 0 5px;
     font-family: cursive;
     background-color: #f5f5f5;
+    &::-webkit-scrollbar {
+      background-color: #fff;
+      width: 4px;
+      overflow: visible;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #0c2135;
+      border-radius: 0;
+    }
+    &::-webkit-scrollbar-button {
+      background-color: #2474b5;
+      width: 0px;
+      height: 0px;
+    }
+    &::-webkit-scrollbar-corner {
+      background-color: black;
+    }
     .self {
       display: flex;
       flex-direction: row-reverse;
