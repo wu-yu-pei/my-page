@@ -22,15 +22,15 @@
 
 - [x] 登录后群聊
 - [x] 使用截图
-      ![1](http://wuyupei.top:7878/1.png)
-      ![2](http://wuyupei.top:7878/2.png)
-      ![3](http://wuyupei.top:7878/3.png)
-      ![4](http://wuyupei.top:7878/4.png)
-      ![5](http://wuyupei.top:7878/5.png)
-      ![6](http://wuyupei.top:7878/6.png)
-      ![7](http://wuyupei.top:7878/7.png)
-      ![8](http://wuyupei.top:7878/8.png)
-      ![9](http://wuyupei.top:7878/9.png)
+      ![1](http://wuyupei.top:7878/upload/1.png)
+      ![2](http://wuyupei.top:7878/upload/2.png)
+      ![3](http://wuyupei.top:7878/upload/3.png)
+      ![4](http://wuyupei.top:7878/upload/4.png)
+      ![5](http://wuyupei.top:7878/upload/5.png)
+      ![6](http://wuyupei.top:7878/upload/6.png)
+      ![7](http://wuyupei.top:7878/upload/7.png)
+      ![8](http://wuyupei.top:7878/upload/8.png)
+      ![9](http://wuyupei.top:7878/upload/9.png)
 
 #### 我的分享链接
 
