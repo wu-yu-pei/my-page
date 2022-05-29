@@ -71,6 +71,7 @@ const getQrImg = async () => {
       userImgEl.value?.setAttribute('src', res.data.userInfo.userImg);
 
       clearInterval(timer);
+      clearTimeout(timerOut.value);
       // 获取用户个人信息及配置信息
       const result = await getUserInfo(res.data.userInfo.openId);
       const { bgImage, blur, redius, menu, openId } = result.data;
@@ -93,6 +94,7 @@ const out = async () => {
   isLogin.value = false;
   qrShow.value = false;
   clearTimeout(timerOut.value);
+  mainStore.userId = '';
   localStorage.removeItem('userId');
 };
 </script>

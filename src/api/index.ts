@@ -74,6 +74,11 @@ export async function beifenData(data: any) {
   let res = await axios.post('/beifen', data);
   return res;
 }
+// 聊天记录
+export async function getCheat() {
+  let res = await axios.get('/cheat');
+  return res;
+}
 // 登录注册
 // export async function register(account: string, password: string, mail: string) {
 //   let res = await axios.post('/register', { account, password, mail });

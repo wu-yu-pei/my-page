@@ -24,9 +24,15 @@
 import { ref, toRefs } from 'vue';
 import SocketIO from 'socket.io-client';
 import useMainStore from '../store';
+import { getCheat } from '../api/index';
 
 const messages = ref<any[]>([]);
 const inputValue = ref('');
+getCheat().then((res) => {
+  console.log(res);
+
+  messages.value = res.data;
+});
 
 const mainStroe = useMainStore();
 const state = toRefs(mainStroe);
@@ -78,9 +84,12 @@ const send = () => {
   }
   .chect-content {
     flex: 1;
-    height: 300px;
     border: 1px solid #000;
     border-bottom: none;
+    overflow-y: auto;
+    padding: 0 5px;
+    font-family: cursive;
+    background-color: #f5f5f5;
     .self {
       display: flex;
       flex-direction: row-reverse;
@@ -92,8 +101,19 @@ const send = () => {
         border-radius: 50%;
       }
       .self-content {
-        border: 1px solid #000;
+        position: relative;
         border-radius: 5px;
+        background: #30ff30;
+        padding: 6px 10px;
+        max-width: 180px;
+        &::after {
+          position: absolute;
+          content: '';
+          top: 1px;
+          right: -14px;
+          border: 10px solid transparent;
+          border-left: 10px solid #30ff30;
+        }
       }
     }
     .outher {
@@ -106,8 +126,19 @@ const send = () => {
         border-radius: 50%;
       }
       .self-content {
-        border: 1px solid #000;
+        position: relative;
         border-radius: 5px;
+        background-color: #fff;
+        padding: 6px 10px;
+        max-width: 180px;
+        &::after {
+          position: absolute;
+          content: '';
+          top: 1px;
+          left: -14px;
+          border: 10px solid transparent;
+          border-right: 10px solid #fff;
+        }
       }
     }
   }
