@@ -2,7 +2,7 @@
   <div class="user">
     <div class="user-info">
       <template v-if="isLogin">
-        <img src="http://wuyupei.top:8888/upload/user.jpg" alt="" ref="userImgEl" />
+        <img :src="mainStore.WallpaperImgUlr" alt="" ref="userImgEl" />
         <div class="user-info-name">{{ userName }}</div>
         <button @click="out">退出登录</button>
       </template>
@@ -114,7 +114,6 @@ const out = async () => {
     img {
       width: 50px;
       height: 50px;
-      border: 1px solid #000;
       border-radius: 5px;
     }
     button {

@@ -44,7 +44,7 @@ const socketOptions = {
   autoConnect: true, // 自动连接
 };
 //建立websocket连接
-var socket = SocketIO('http://localhost:8888', socketOptions);
+var socket = SocketIO('http://wuyupei.top:8888', socketOptions);
 
 //接受服务端发来的消息
 socket.on('guangbo', (data: any) => {
@@ -84,6 +84,7 @@ const send = () => {
   }
   .chect-content {
     flex: 1;
+    max-height: 534px;
     border: 1px solid #000;
     border-bottom: none;
     overflow-y: auto;
