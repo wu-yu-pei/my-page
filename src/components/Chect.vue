@@ -51,8 +51,10 @@ const socketOptions = {
 var socket = SocketIO('http://wuyupei.top:8888', socketOptions);
 
 //接受服务端发来的消息
-socket.on('guangbo', (data: any) => {
+socket.on('guangbo',async (data: any) => {
   messages.value.push(data);
+  await nextTick();
+  contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 });
 
 const send = async () => {
