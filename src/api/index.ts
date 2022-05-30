@@ -1,6 +1,6 @@
 import axios from 'axios';
 const devBaseUrl = 'http://localhost:8888';
-const proBaseUrl = 'http://localhost:8888' || 'http://wuyupei.top:8888';
+const proBaseUrl = 'http://wuyupei.top:8888';
 
 axios.defaults.baseURL = proBaseUrl;
 
