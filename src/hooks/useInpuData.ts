@@ -1,4 +1,6 @@
-export default (data: any, store: any) => {
+import useMainStore from '../store';
+export default (data: any) => {
+  const store = useMainStore();
   const { blur, radius, bgImage, menu, searchOri } = data;
   // 回复数据
   store.blur = blur;

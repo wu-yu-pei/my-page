@@ -7,26 +7,13 @@
       <!-- 壁纸 -->
       <div class="header-left-content-wallpaper">
         <h3>背景壁纸</h3>
-        <img :src="store.$state.WallpaperImgUlr" alt="" />
+        <img :src="store.WallpaperImgUlr" alt="" />
         <div class="header-left-content-wallpaper-control">
           <button @click="changeWallpaperRandom">随机切换</button>
           <label for="file">本地壁纸</label>
           <input id="file" type="file" @click="changeWallpaperUpload" />
           <button @click="setWallpaper">设置壁纸</button>
         </div>
-      </div>
-      <!-- 数据备份 -->
-      <div class="header-left-content-data">
-        <h3>数据备份</h3>
-        <button @click="outputData">导出数据</button>
-        <label for="files" @click="inputData">导入数据</label>
-        <input id="files" type="file" @click="changeWallpaperUpload" />
-      </div>
-      <!-- 数据分享 -->
-      <div class="header-left-content-data">
-        <h3>数据共享</h3>
-        <button @click="shareData">分享数据</button>
-        <button @click="inputShareData">链接导入</button>
       </div>
       <!-- 模糊尺寸 -->
       <div class="header-left-content-bgfilter">
@@ -38,9 +25,23 @@
         <h3>边缘圆角</h3>
         <Slider :value="store.radius" @update="updateRadius" :max="10" width="100%"></Slider>
       </div>
+      <!-- 数据分享 -->
       <div class="header-left-content-data">
-        <h3>微信备份</h3>
-        <button @click="beifen">备份</button>
+        <h3>数据共享</h3>
+        <button @click="shareData">分享数据</button>
+        <button @click="inputShareData">链接导入</button>
+      </div>
+      <!-- 本地备份及恢复 -->
+      <div class="header-left-content-data">
+        <h3>本地备份及恢复</h3>
+        <button @click="outputData">本地备份</button>
+        <label for="files" @click="inputData">本地恢复</label>
+        <input id="files" type="file" @click="changeWallpaperUpload" />
+      </div>
+      <!-- 微信备份 -->
+      <div class="header-left-content-data">
+        <h3>微信备份及恢复</h3>
+        <button @click="beifen">微信备份</button>
       </div>
     </div>
   </div>
@@ -63,13 +64,11 @@ import Slider from './Slider.vue';
 const store = useMainStore();
 const target = ref(null);
 const isShow = ref(false);
-const wallpaperImgUrl = ref('');
 
 // change wallpaper readom
 const changeWallpaperRandom = () => {
   const url = getRandomImg();
-  wallpaperImgUrl.value = url;
-  store.$state.WallpaperImgUlr = url;
+  store.WallpaperImgUlr = url;
   localStorage.setItem('bgImage', url);
 };
 
@@ -81,7 +80,7 @@ const changeWallpaperUpload = () => {
     const formData = new FormData();
     formData.append('file', file.files[0]);
     const imgUrl = await uploadImage(formData);
-    store.$state.WallpaperImgUlr = imgUrl;
+    store.WallpaperImgUlr = imgUrl;
 
     localStorage.setItem('bgImage', imgUrl);
   });
@@ -93,12 +92,13 @@ const setWallpaper = () => {
 
   if (!imgUrl?.trim()) return;
 
-  store.$state.WallpaperImgUlr = imgUrl!;
+  store.WallpaperImgUlr = imgUrl!;
   localStorage.setItem('bgImage', imgUrl!);
 };
 
 // output data
 const outputData = () => {
+  // 这些可以直接从 mainStroe里面拿
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
   const bgImage = localStorage.getItem('bgImage');
@@ -127,7 +127,7 @@ const inputData = () => {
 
     reader.onload = function () {
       const result = JSON.parse(this.result as string);
-      useInpuData(result, store);
+      useInpuData(result);
     };
   });
 };
@@ -137,7 +137,6 @@ const shareData = async () => {
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
   const bgImage = localStorage.getItem('bgImage');
-  console.log(bgImage);
 
   const radius = localStorage.getItem('radius');
   const searchOri = JSON.parse(localStorage.getItem('searchOrigin')!);
@@ -163,8 +162,9 @@ const inputShareData = async () => {
   if (!url) return;
   const res = await getShareData(url);
 
-  useInpuData(res, store);
+  useInpuData(res);
 };
+
 // blur change
 const updateBlur = (value: string) => {
   store.blur = Number(value);

@@ -23,9 +23,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { getQr, check, getUserInfo } from '../api/index';
+import { getQr, check } from '../api/index';
 import loadingImg from '../assets/img/loading.svg';
 import useMainStore from '../store';
+import useSyncConfing from '../hooks/useSyncConfig';
 
 const qrEl = ref<HTMLImageElement>()!;
 const userImgEl = ref<HTMLImageElement>()!;
@@ -72,20 +73,9 @@ const getQrImg = async () => {
 
       clearInterval(timer);
       clearTimeout(timerOut.value);
+
       // 获取用户个人信息及配置信息
-      const result = await getUserInfo(res.data.userInfo.openId);
-      const { bgImage, blur, redius, menu, openId } = result.data;
-
-      mainStore.WallpaperImgUlr = bgImage;
-      mainStore.blur = blur;
-      mainStore.radius = redius;
-      mainStore.muenSource = menu;
-      mainStore.userId = openId;
-
-      localStorage.setItem('bgImage', bgImage);
-      localStorage.setItem('blur', blur);
-      localStorage.setItem('radius', redius);
-      localStorage.setItem('menu', JSON.stringify(menu));
+      useSyncConfing(res.data.userInfo.openId);
     }
   }, 2000);
 };

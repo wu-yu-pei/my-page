@@ -79,18 +79,3 @@ export async function getCheat() {
   let res = await axios.get('/cheat');
   return res;
 }
-// 登录注册
-// export async function register(account: string, password: string, mail: string) {
-//   let res = await axios.post('/register', { account, password, mail });
-//   console.log(res);
-// }
-
-// export async function login(account: string, password: string) {
-//   let res = await axios.post('/login', { account, password });
-//   console.log(res);
-// }
-
-// export async function getCode() {
-//   let res = await axios.get('/code');
-//   return res.data.code;
-// }

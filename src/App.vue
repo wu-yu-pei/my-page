@@ -10,10 +10,15 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
 import Body from './components/Body.vue';
+
 import useMainStore from './store/index';
-import { getKeyWord } from './api/index';
-getKeyWord('redis');
+import useSyncConfig from './hooks/useSyncConfig';
+
 const state = useMainStore();
+
+if (state.userId) {
+  useSyncConfig(state.userId);
+}
 </script>
 
 <style>

@@ -71,6 +71,7 @@ const sure = () => {
 
   const menu = JSON.parse(localStorage.getItem('menu')!);
   menu.push(itemInfo);
+
   localStorage.setItem('menu', JSON.stringify(menu));
 
   store.muenSource = JSON.parse(localStorage.getItem('menu')!);
