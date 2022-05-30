@@ -7,6 +7,9 @@
           <img :src="item.img" alt="" />
           <div class="self-content">{{ item.message }}</div>
         </div>
+        <div v-else-if="item.type == 'date'" class="time">
+          <span>{{ item.date }}</span>
+        </div>
         <div class="outher" v-else>
           <img :src="item.img" alt="" />
           <div class="self-content">{{ item.message }}</div>
@@ -65,9 +68,26 @@ const send = async () => {
     name: localStorage.getItem('userName'),
     img: localStorage.getItem('bgImage'),
     message: inputValue.value,
+    date: +new Date(),
   };
-  messages.value.push(message);
 
+  if (
+    message.date -
+      (messages.value[messages.value.length - 1] &&
+        messages.value[messages.value.length - 1].date) >
+    1000 * 60 * 10
+  ) {
+    const timeMessage = {
+      type: 'date',
+      date: new Date(message.date).toLocaleString(),
+    };
+    // 时间
+    messages.value.push(timeMessage);
+    socket.emit('message', timeMessage);
+  }
+
+  // 聊天信息
+  messages.value.push(message);
   socket.emit('message', message);
   inputValue.value = '';
   await nextTick();
@@ -96,6 +116,15 @@ const send = async () => {
     padding: 0 5px;
     font-family: cursive;
     background-color: #f5f5f5;
+    .time {
+      text-align: center;
+      span {
+        background-color: #ccc;
+        font-size: 12px;
+        padding: 5px 5px;
+        color: #fff;
+      }
+    }
     &::-webkit-scrollbar {
       background-color: #fff;
       width: 4px;
