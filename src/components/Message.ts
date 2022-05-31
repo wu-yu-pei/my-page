@@ -1,9 +1,11 @@
 type PropsType = {
   type: string;
   message: string;
+  time?: number;
 };
 
 import errorImg from '../assets/img/error.png';
+import success from '../assets/img/success.png';
 
 class Message {
   div: HTMLDivElement | null;
@@ -11,7 +13,8 @@ class Message {
     const img = document.createElement('img');
     img.style.verticalAlign = 'middle';
     img.style.margin = '0 10px';
-    img.src = errorImg;
+
+    img.src = props.type == 'error' ? errorImg : success;
 
     this.div = document.createElement('div');
 
@@ -40,7 +43,7 @@ class Message {
 
     setTimeout(() => {
       document.body.removeChild(this.div as Node);
-    }, 1500);
+    }, props.time || 1500);
   }
 }
 

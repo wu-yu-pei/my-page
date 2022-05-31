@@ -135,6 +135,14 @@ const inputData = () => {
 
 // share data
 const shareData = async () => {
+  const userId = store.userId;
+  if (!userId) {
+    new Message({
+      type: 'error',
+      message: '未登录',
+    });
+    return;
+  }
   const menu = JSON.parse(localStorage.getItem('menu')!);
   const blur = localStorage.getItem('blur');
   const bgImage = localStorage.getItem('bgImage');
@@ -156,8 +164,9 @@ const shareData = async () => {
   const url = await getShareDataUrl(formdata);
   await nextTick();
   new Message({
-    type: 'error',
+    type: 'success',
     message: url,
+    time: 3000,
   });
 };
 
@@ -206,7 +215,10 @@ const beifen = async () => {
       message: '备份成功',
     });
   } else {
-    alert('备份失败');
+    new Message({
+      type: 'error',
+      message: '备份失败',
+    });
   }
 };
 // 在..外点击
