@@ -5,14 +5,24 @@
       <div v-for="(item, index) in messages">
         <div class="self" v-if="item.from == self">
           <img :src="item.img" alt="" />
-          <div class="self-content">{{ item.message }}</div>
+          <div>
+            <p>{{ item.from.slice(-4) }}</p>
+            <div class="self-content">
+              {{ item.message }}
+            </div>
+          </div>
         </div>
         <div v-else-if="item.type == 'date'" class="time">
           <span>{{ item.date }}</span>
         </div>
         <div class="outher" v-else>
           <img :src="item.img" alt="" />
-          <div class="self-content">{{ item.message }}</div>
+          <div>
+            <p>{{ item.from.slice(-4) }}</p>
+            <div class="outher-content">
+              {{ item.message }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -51,7 +61,7 @@ const socketOptions = {
 var socket = SocketIO('http://wuyupei.top:8888', socketOptions);
 
 //接受服务端发来的消息
-socket.on('guangbo',async (data: any) => {
+socket.on('guangbo', async (data: any) => {
   messages.value.push(data);
   await nextTick();
   contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
@@ -154,6 +164,12 @@ const send = async () => {
         margin-left: 5px;
         border-radius: 50%;
       }
+      p {
+        text-align: right;
+        color: green;
+        font-size: 12px;
+        margin: 0 0 2px 0;
+      }
       .self-content {
         position: relative;
         border-radius: 5px;
@@ -163,10 +179,11 @@ const send = async () => {
         &::after {
           position: absolute;
           content: '';
-          top: 1px;
+          top: -3px;
           right: -14px;
           border: 10px solid transparent;
           border-left: 10px solid #30ff30;
+          transform: rotateZ(335deg);
         }
       }
     }
@@ -174,24 +191,32 @@ const send = async () => {
       display: flex;
       margin: 10px 0;
       img {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         margin-right: 5px;
         border-radius: 50%;
       }
-      .self-content {
+      p {
+        text-align: left;
+        color: green;
+        font-size: 12px;
+        margin: 0 0 2px 0;
+      }
+      .outher-content {
         position: relative;
         border-radius: 5px;
         background-color: #fff;
         padding: 6px 10px;
         max-width: 180px;
+
         &::after {
           position: absolute;
           content: '';
-          top: 1px;
+          top: -3px;
           left: -14px;
           border: 10px solid transparent;
-          border-right: 10px solid #fff;
+          border-left: 10px solid #fff;
+          transform: rotateZ(214deg);
         }
       }
     }
