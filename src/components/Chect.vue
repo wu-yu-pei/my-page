@@ -125,7 +125,7 @@ const send = async () => {
   }
   .chect-content {
     flex: 1;
-    max-height: 534px;
+    max-height: 500px;
     border: 1px solid #000;
     border-bottom: none;
     overflow-y: auto;
