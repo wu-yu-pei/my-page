@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Message from '../components/Message';
 const devBaseUrl = 'http://localhost:8888';
 const proBaseUrl = 'http://wuyupei.top:8888';
 
@@ -31,7 +32,11 @@ export async function getShareData(url: string) {
     res = await axios.get(url);
   } catch (error) {
     if ((error as any).response.status == 404) {
-      alert('链接无效');
+      new Message({
+        type: 'error',
+        message: '链接无效',
+      });
+      // todo 消息框
       return;
     }
   }

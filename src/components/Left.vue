@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import * as FileSaver from 'file-saver';
 
@@ -60,6 +60,7 @@ import useInpuData from '../hooks/useInpuData';
 import useMainStore from '../store';
 
 import Slider from './Slider.vue';
+import Message from './Message';
 
 const store = useMainStore();
 const target = ref(null);
@@ -153,7 +154,11 @@ const shareData = async () => {
   formdata.append('file', file);
 
   const url = await getShareDataUrl(formdata);
-  alert(url);
+  await nextTick();
+  new Message({
+    type: 'error',
+    message: url,
+  });
 };
 
 // input ShareData
@@ -179,7 +184,11 @@ const updateRadius = (value: string) => {
 
 const beifen = async () => {
   if (!localStorage.getItem('userId')) {
-    alert('未登录');
+    await nextTick();
+    new Message({
+      type: 'error',
+      message: '未登录',
+    });
     return;
   }
   const data = {
@@ -191,7 +200,11 @@ const beifen = async () => {
   };
   const res = await beifenData(data);
   if (res.data.length === 1) {
-    alert('备份成功');
+    await nextTick();
+    new Message({
+      type: 'success',
+      message: '备份成功',
+    });
   } else {
     alert('备份失败');
   }

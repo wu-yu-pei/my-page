@@ -68,6 +68,7 @@ onClickOutside(target, () => {
   h2 {
     text-align: center;
     margin-top: 10px;
+    font-weight: 500;
   }
   .modle-form {
     p {

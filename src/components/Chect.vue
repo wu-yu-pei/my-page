@@ -38,6 +38,7 @@ import { ref, toRefs, nextTick } from 'vue';
 import SocketIO from 'socket.io-client';
 import useMainStore from '../store';
 import { getCheat } from '../api/index';
+import Message from './Message';
 
 const messages = ref<any[]>([]);
 const contentEl = ref<InstanceType<typeof HTMLDivElement>>();
@@ -70,7 +71,12 @@ socket.on('guangbo', async (data: any) => {
 const send = async () => {
   if (!self.value) {
     inputValue.value = '';
-    return alert('请使用微信登录!');
+    await nextTick();
+    new Message({
+      type: 'error',
+      message: '请使用微信登录',
+    });
+    return;
   }
   if (inputValue.value.trim() == '') {
     return;
