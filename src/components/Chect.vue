@@ -1,6 +1,6 @@
 <template>
   <div class="chect">
-    <h3>聊天大厅</h3>
+    <h3>聊天大厅({{ mainStroe.userId ? `${onlineUser}人在线` : '未登录' }})</h3>
     <div class="chect-content" ref="contentEl">
       <div v-for="(item, index) in messages">
         <div class="self" v-if="item.from == self">
@@ -34,15 +34,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, nextTick } from 'vue';
-import SocketIO from 'socket.io-client';
+import { ref, nextTick, onBeforeUnmount } from 'vue';
+
 import useMainStore from '../store';
-import { getCheat } from '../api/index';
+import { getCheat, getUserNumber } from '../api/index';
 import Message from './Message';
+import { storeToRefs } from 'pinia';
 
 const messages = ref<any[]>([]);
 const contentEl = ref<InstanceType<typeof HTMLDivElement>>();
 const inputValue = ref('');
+
+const mainStroe = useMainStore();
+
+const self = mainStroe.userId;
+const socket = mainStroe.socket;
+
+const { onlineUser } = storeToRefs(mainStroe);
 
 getCheat().then(async (res) => {
   messages.value = res.data;
@@ -50,16 +58,11 @@ getCheat().then(async (res) => {
   contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 });
 
-const mainStroe = useMainStore();
-const state = toRefs(mainStroe);
-
-const self = state.userId;
-
-const socketOptions = {
-  autoConnect: true, // 自动连接
-};
-//建立websocket连接
-var socket = SocketIO('http://wuyupei.top:8888', socketOptions);
+socket.on('connect', () => {
+  getUserNumber().then((res) => {
+    onlineUser.value = res.data.data;
+  });
+});
 
 //接受服务端发来的消息
 socket.on('guangbo', async (data: any) => {
@@ -68,8 +71,13 @@ socket.on('guangbo', async (data: any) => {
   contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 });
 
+// 在新人数
+socket.on('user join', async (data: any) => {
+  onlineUser.value = data;
+});
+
 const send = async () => {
-  if (!self.value) {
+  if (!self) {
     inputValue.value = '';
     await nextTick();
     new Message({
@@ -111,6 +119,10 @@ const send = async () => {
   await nextTick();
   contentEl.value!.scrollTop = contentEl.value!.scrollHeight;
 };
+
+onBeforeUnmount(() => {
+  socket.disconnect();
+});
 </script>
 
 <style scoped lang="less">

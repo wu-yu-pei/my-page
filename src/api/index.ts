@@ -84,3 +84,9 @@ export async function getCheat() {
   let res = await axios.get('/cheat');
   return res;
 }
+
+// 在线人数
+
+export async function getUserNumber() {
+  return await axios.get('/usersnumber');
+}

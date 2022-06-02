@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import SocketIO from 'socket.io-client';
 import { Document } from '../config/bodyconfig';
 
 const useMainStore = defineStore('Main', {
@@ -12,6 +13,10 @@ const useMainStore = defineStore('Main', {
       muenSource:
         (localStorage.getItem('menu') && JSON.parse(localStorage.getItem('menu')!)) || Document,
       userId: localStorage.getItem('userId') || '',
+      socket: SocketIO('http://wuyupei:8888', {
+        autoConnect: false, // 自动连接
+      }),
+      onlineUser: 0,
     };
   },
 });

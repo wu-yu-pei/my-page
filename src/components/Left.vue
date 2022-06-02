@@ -56,6 +56,7 @@ import menuUrl from '../assets/img/menu.png';
 import cancleUrl from '../assets/img/cancle.png';
 
 import { getRandomImg, uploadImage, getShareDataUrl, getShareData, beifenData } from '../api/index';
+
 import useInpuData from '../hooks/useInpuData';
 import useMainStore from '../store';
 

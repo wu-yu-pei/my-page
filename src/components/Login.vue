@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { getQr, check } from '../api/index';
+import { getQr, check, getUserNumber } from '../api/index';
 import loadingImg from '../assets/img/loading.svg';
 import useMainStore from '../store';
 import useSyncConfing from '../hooks/useSyncConfig';
@@ -76,6 +76,8 @@ const getQrImg = async () => {
 
       // 获取用户个人信息及配置信息
       useSyncConfing(res.data.userInfo.openId);
+      // 登录成功建立连接
+      mainStore.socket.connect();
     }
   }, 2000);
 };
@@ -83,6 +85,10 @@ const getQrImg = async () => {
 const out = async () => {
   isLogin.value = false;
   qrShow.value = false;
+  mainStore.socket.disconnect();
+  getUserNumber().then((res) => {
+    mainStore.onlineUser = res.data.data;
+  });
   clearTimeout(timerOut.value);
   mainStore.userId = '';
   localStorage.removeItem('userId');
