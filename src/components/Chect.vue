@@ -3,7 +3,7 @@
     <h3>聊天大厅({{ mainStroe.userId ? `${onlineUser}人在线` : '未登录' }})</h3>
     <div class="chect-content" ref="contentEl">
       <div v-for="(item, index) in messages">
-        <div class="self" v-if="item.from == self">
+        <div class="self" v-if="item.from == mainStroe.userId">
           <img :src="item.img" alt="" />
           <div>
             <p>{{ item.from.slice(-4) }}</p>
@@ -47,12 +47,11 @@ const inputValue = ref('');
 
 const mainStroe = useMainStore();
 
-const self = mainStroe.userId;
 const socket = mainStroe.socket;
 
-const { onlineUser } = storeToRefs(mainStroe);
+const { onlineUser, userId } = storeToRefs(mainStroe);
 
-if (self) {
+if (userId.value) {
   socket.connect();
 }
 
@@ -81,7 +80,7 @@ socket.on('user join', async (data: any) => {
 });
 
 const send = async () => {
-  if (!self) {
+  if (!userId.value) {
     inputValue.value = '';
     await nextTick();
     new Message({
