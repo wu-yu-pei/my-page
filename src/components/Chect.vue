@@ -52,6 +52,10 @@ const socket = mainStroe.socket;
 
 const { onlineUser } = storeToRefs(mainStroe);
 
+if (self) {
+  socket.connect();
+}
+
 getCheat().then(async (res) => {
   messages.value = res.data;
   await nextTick();
