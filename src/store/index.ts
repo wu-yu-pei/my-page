@@ -13,7 +13,7 @@ const useMainStore = defineStore('Main', {
       muenSource:
         (localStorage.getItem('menu') && JSON.parse(localStorage.getItem('menu')!)) || Document,
       userId: localStorage.getItem('userId') || '',
-      socket: SocketIO('http://wuyupei:8888', {
+      socket: SocketIO('http://wuyupei.top:8888', {
         autoConnect: false, // 自动连接
       }),
       onlineUser: 0,
