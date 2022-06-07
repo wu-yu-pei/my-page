@@ -39,3 +39,6 @@
 > http://wuyupei.top:8888/upload/97209af054739ae9598f03b04.json
 
 #### 待优化...
+
+- [ ] 前端页面使用https （需要后端配合,https网站必须https提供服务）
+- [ ] 后端服务提供https 服务
