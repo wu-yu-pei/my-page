@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Message from '../components/Message';
-const devBaseUrl = 'http://localhost:8888';
-const proBaseUrl = 'http://wuyupei.top:8888';
+
+const proBaseUrl = import.meta.env.VITE_APP_BASE_URL;
+
 
 axios.defaults.baseURL = proBaseUrl;
 
