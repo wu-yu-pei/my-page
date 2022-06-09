@@ -22,6 +22,8 @@
 
 - [x] 登录后群聊
 - [x] 在线人数(显示当前在线人数)
+- [x] 前端页面使用https （nginx 配置证书 端口号改为二级域名)
+- [x] 后端服务提供https （http ws -> https wss）
 - [x] 使用截图
       ![1](http://wuyupei.top:7878/upload/1.png)
       ![2](http://wuyupei.top:7878/upload/2.png)
@@ -39,6 +41,3 @@
 > http://wuyupei.top:8888/upload/97209af054739ae9598f03b04.json
 
 #### 待优化...
-
-- [ ] 前端页面使用https （需要后端配合,https网站必须https提供服务）
-- [ ] 后端服务提供https 服务
