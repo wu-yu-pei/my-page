@@ -6,7 +6,7 @@
         <div class="self" v-if="item.from == mainStroe.userId">
           <img :src="item.img" alt="" />
           <div>
-            <p>{{ item.from.slice(-4) }}</p>
+            <p>{{ item.name }}</p>
             <div class="self-content">
               {{ item.message }}
             </div>
@@ -80,6 +80,7 @@ socket.on('user join', async (data: any) => {
 });
 
 const send = async () => {
+  // 未登录
   if (!userId.value) {
     inputValue.value = '';
     await nextTick();
@@ -89,6 +90,7 @@ const send = async () => {
     });
     return;
   }
+  // 输入框没有内容
   if (inputValue.value.trim() == '') {
     return;
   }
