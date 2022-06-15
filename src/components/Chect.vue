@@ -95,7 +95,7 @@ const send = async () => {
   const message = {
     from: localStorage.getItem('userId'),
     name: localStorage.getItem('userName'),
-    img: localStorage.getItem('bgImage'),
+    img: mainStroe.userimg,
     message: inputValue.value,
     date: +new Date(),
   };
