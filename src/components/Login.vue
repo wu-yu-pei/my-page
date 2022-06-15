@@ -142,6 +142,7 @@ const out = async () => {
         width: 50px;
         height: 50px;
         border-radius: 5px;
+        background-color: #fff;
         &:nth-child(1) {
           z-index: 2;
         }
