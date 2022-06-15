@@ -18,6 +18,7 @@ const useMainStore = defineStore('Main', {
         autoConnect: false, // 自动连接
       }),
       onlineUser: 0,
+      userimg: '',
     };
   },
 });

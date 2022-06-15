@@ -2,7 +2,17 @@
   <div class="user">
     <div class="user-info">
       <template v-if="isLogin">
-        <img :src="mainStore.WallpaperImgUlr" alt="" ref="userImgEl" />
+        <div class="user-img">
+          <img :src="mainStore.userimg" alt="" ref="userImgEl" />
+          <label for="userimg" alt="" />
+          <input
+            type="file"
+            style="display: none"
+            @change="changeUserImg"
+            id="userimg"
+            ref="uploadEl"
+          />
+        </div>
         <div class="user-info-name">{{ userName }}</div>
         <button @click="out">退出登录</button>
       </template>
@@ -23,13 +33,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { getQr, check, getUserNumber } from '../api/index';
+import { getQr, check, getUserNumber, uploadImage, getUserInfo, changeImg } from '../api/index';
 import loadingImg from '../assets/img/loading.svg';
 import useMainStore from '../store';
 import useSyncConfing from '../hooks/useSyncConfig';
 
 const qrEl = ref<HTMLImageElement>()!;
 const userImgEl = ref<HTMLImageElement>()!;
+const uploadEl = ref<HTMLInputElement>()!;
 const outShow = ref(false);
 const qrShow = ref(false);
 const isLogin = ref(false);
@@ -43,6 +54,9 @@ const userId = localStorage.getItem('userId');
 if (userId) {
   // 去获取用户信息
   isLogin.value = true;
+  getUserInfo(userId).then((res) => {
+    mainStore.userimg = res.data.userImg;
+  });
 }
 
 const getQrImg = async () => {
@@ -69,7 +83,7 @@ const getQrImg = async () => {
 
       isLogin.value = true;
       userName.value = res.data.userInfo.userName;
-      userImgEl.value?.setAttribute('src', res.data.userInfo.userImg);
+      mainStore.userimg = res.data.userInfo.userImg;
 
       clearInterval(timer);
       clearTimeout(timerOut.value);
@@ -80,6 +94,19 @@ const getQrImg = async () => {
       mainStore.socket.connect();
     }
   }, 2000);
+};
+
+// 修改用户图像
+const changeUserImg = async () => {
+  // 上传图像
+  const file = uploadEl.value?.files!;
+  const formdate = new FormData();
+  formdate.append('file', file[0]);
+  const url = await uploadImage(formdate);
+  mainStore.userimg = url;
+  // 修改图像
+  const res = await changeImg(userId as string, url);
+  console.log(res);
 };
 
 const out = async () => {
@@ -99,18 +126,40 @@ const out = async () => {
 .user {
   width: 100%;
   .user-info {
-    position: relative;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    // height: 50px;
     height: 100%;
     gap: 0 50px;
     margin: 10px 0;
-    img {
+    .user-img {
+      position: relative;
       width: 50px;
       height: 50px;
-      border-radius: 5px;
+      img,
+      label {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        &:nth-child(1) {
+          z-index: 2;
+        }
+        &:nth-child(2) {
+          z-index: 1;
+        }
+      }
+      label {
+        background-image: url(../assets/img/edit.png);
+      }
+      &:hover img:nth-child(1) {
+        z-index: 1;
+      }
+      &:hover label:nth-child(2) {
+        z-index: 2;
+        background-color: #ccc;
+        opacity: 0.8;
+      }
     }
     button {
       width: 100%;

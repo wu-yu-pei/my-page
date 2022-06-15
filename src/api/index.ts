@@ -3,7 +3,6 @@ import Message from '../components/Message';
 
 const proBaseUrl = import.meta.env.VITE_APP_BASE_URL;
 
-
 axios.defaults.baseURL = proBaseUrl;
 
 export function getRandomImg() {
@@ -87,7 +86,14 @@ export async function getCheat() {
 }
 
 // 在线人数
-
 export async function getUserNumber() {
   return await axios.get('/usersnumber');
+}
+
+// 修改用户图像
+export async function changeImg(userid: string, url: string) {
+  return await axios.post('changeUserImg', {
+    userid,
+    url,
+  });
 }
