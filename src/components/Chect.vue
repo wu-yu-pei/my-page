@@ -18,7 +18,7 @@
         <div class="outher" v-else>
           <img :src="item.img" alt="" />
           <div>
-            <p>{{ item.from.slice(-4) }}</p>
+            <p>{{ item.name }}</p>
             <div class="outher-content">
               {{ item.message }}
             </div>
