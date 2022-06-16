@@ -106,7 +106,6 @@ const changeUserImg = async () => {
   mainStore.userimg = url;
   // 修改图像
   const res = await changeImg(userId as string, url);
-  console.log(res);
 };
 
 const out = async () => {
