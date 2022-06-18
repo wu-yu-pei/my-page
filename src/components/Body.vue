@@ -139,8 +139,11 @@ onBeforeUnmount(() => {
         font-size: 20px;
         padding-left: 5px;
         margin-right: 17px;
+        letter-spacing: 3px;
+        transition: all linear 0.1s;
         &:focus {
-          border: 1px solid #fccc;
+          border: 1px solid #000;
+          background-color: rgb(244, 228, 228);
           outline: none;
         }
       }
