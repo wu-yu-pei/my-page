@@ -5,12 +5,14 @@
     :style="{ top: props.top, left: props.left, display: props.show ? 'block' : 'none' }"
   >
     <li @click="dockMenuClick">{{ showDock ? '隐藏' : '显示' }}Dock栏</li>
+    <li @click="beifen">备份</li>
     <li>当前时间:{{ data }}</li>
   </ul>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import useMemory from '../hooks/useMemory';
 const props = defineProps({
   top: {
     type: String,
@@ -36,6 +38,10 @@ const data = ref(null);
 
 const dockMenuClick = function () {
   emit('dockMenuClick');
+};
+
+const beifen = () => {
+  useMemory();
 };
 
 onMounted(() => {
