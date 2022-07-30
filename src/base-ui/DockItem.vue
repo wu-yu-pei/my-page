@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 
 import useMainStore from '../store/index';

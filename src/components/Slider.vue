@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 defineProps({
   value: {
     type: Number,

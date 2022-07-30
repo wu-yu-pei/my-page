@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, defineEmits } from 'vue';
+import { reactive } from 'vue';
 import { searchConfig } from '../config/search.config';
 let origin = reactive(JSON.parse(localStorage.getItem('searchOrigin')!)) || reactive(searchConfig);
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="body" :style="{display: showDock ? 'block' : 'flex'}">
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
       <div class="input" ref="divRef">
@@ -24,12 +24,15 @@
         </div>
       </div>
     </div>
-    <Dock></Dock>
+    <template v-if="showDock">
+      <Dock></Dock>
+    </template>
+    <ContextMenu v-bind="contextMenuPosition" :showDock="showDock" @dockMenuClick="dockMenuClick"></ContextMenu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
 import { useDebounceFn, onClickOutside } from '@vueuse/core';
 
 import Select from '../base-ui/Select.vue';
@@ -39,13 +42,17 @@ import { getKeyWord } from '../api/index';
 
 import { searchConfig } from '../config/search.config';
 import KeyWordItem from '../base-ui/KeyWordItem.vue';
+import ContextMenu from './contextmenu.vue';
 
 const search = ref('');
 const searchOrigin = ref();
 const inputRef = ref<InstanceType<typeof HTMLElement>>();
 const divRef = ref<InstanceType<typeof HTMLElement>>();
+
 const keyword = ref([]);
 const moreIsshow = ref(false);
+const contextMenuPosition = reactive({ top: '0px', left: '0px', show: false });
+const showDock = ref(true);
 
 // init searchOrg
 if (JSON.parse(localStorage.getItem('searchOrigin')!)) {
@@ -108,7 +115,23 @@ onMounted(() => {
   // 自动聚焦
   inputRef.value!.focus();
   document.addEventListener('keydown', handleSearch);
+  document.addEventListener('contextmenu', handleContextMenu);
+  document.addEventListener('click', () => {
+    contextMenuPosition.show = false;
+  });
 });
+
+const dockMenuClick = () => {
+  showDock.value = !showDock.value;
+  contextMenuPosition.show = false;
+};
+const handleContextMenu = (e: any) => {
+  e.preventDefault();
+  const { clientX: left, clientY: top } = e;
+  contextMenuPosition.top = `${top - 10}px`;
+  contextMenuPosition.left = `${left - 10}px`;
+  contextMenuPosition.show = true;
+};
 
 // remove event
 onBeforeUnmount(() => {
@@ -120,6 +143,8 @@ onBeforeUnmount(() => {
 .body {
   // width: 1200px;
   margin: auto;
+  height: calc(100% - 49px);
+  transition: all 0.5s linear;
   .body-search {
     display: flex;
     justify-content: space-between;

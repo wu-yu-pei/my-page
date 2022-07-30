@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, defineEmits, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 
 import Modle from '../base-ui/Modle.vue';
 import DockItem from './DockItem.vue';
