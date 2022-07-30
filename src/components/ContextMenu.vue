@@ -5,7 +5,7 @@
     :style="{ top: props.top, left: props.left, display: props.show ? 'block' : 'none' }"
   >
     <li @click="dockMenuClick">{{ showDock ? '隐藏' : '显示' }}Dock栏</li>
-    <li @click="beifen">备份</li>
+    <li @click="beifen">微信备份</li>
     <li>当前时间:{{ data }}</li>
   </ul>
 </template>
