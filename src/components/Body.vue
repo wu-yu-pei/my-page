@@ -42,7 +42,7 @@ import { getKeyWord } from '../api/index';
 
 import { searchConfig } from '../config/search.config';
 import KeyWordItem from '../base-ui/KeyWordItem.vue';
-import ContextMenu from './contextmenu.vue';
+import ContextMenu from './ContextMenu.vue';
 
 const search = ref('');
 const searchOrigin = ref();
