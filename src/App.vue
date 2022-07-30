@@ -1,5 +1,8 @@
 <template>
-  <div class="content" :style="{ background: `url(${state.WallpaperImgUlr})` }">
+  <div
+    class="content"
+    :style="{ background: `url(${state.WallpaperImgUlr})`, backgroundSize: 'cover' }"
+  >
     <div class="filter" :style="{ backdropFilter: `blur(${state.blur}px)` }">
       <Header />
       <Body />
