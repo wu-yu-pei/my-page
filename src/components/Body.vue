@@ -143,7 +143,7 @@ onBeforeUnmount(() => {
 .body {
   // width: 1200px;
   margin: auto;
-  height: calc(100% - 49px);
+  height: calc(100% - 250px);
   transition: all 0.5s linear;
   .body-search {
     display: flex;
