@@ -44,7 +44,7 @@ class Message {
 
     setTimeout(() => {
       document.body.removeChild(this.div as Node);
-    }, 99999);
+    }, props.time || 1500);
   }
 }
 

@@ -164,12 +164,23 @@ const shareData = async () => {
 
   const url = await getShareDataUrl(formdata);
   await nextTick();
+  copyHandle(url);
   new Message({
     type: 'success',
-    message: url,
+    message: '已复制到粘贴板',
     time: 3000,
   });
 };
+
+function copyHandle(content: any) {
+  let copy = (e: any) => {
+    e.preventDefault();
+    e.clipboardData.setData('text/plain', content);
+    document.removeEventListener('copy', copy);
+  };
+  document.addEventListener('copy', copy);
+  document.execCommand('Copy');
+}
 
 // input ShareData
 const inputShareData = async () => {
