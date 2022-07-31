@@ -12,7 +12,7 @@ class Message {
   constructor(props: PropsType) {
     const img = document.createElement('img');
     img.style.verticalAlign = 'middle';
-    img.style.margin = 'auto';
+    img.style.margin = '5px auto 0';
     img.style.display = 'block';
 
     img.src = props.type == 'error' ? errorImg : success;
@@ -44,7 +44,7 @@ class Message {
 
     setTimeout(() => {
       document.body.removeChild(this.div as Node);
-    }, props.time || 1500);
+    }, 99999);
   }
 }
 
