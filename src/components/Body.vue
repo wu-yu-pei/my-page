@@ -1,5 +1,5 @@
 <template>
-  <div class="body" :style="{display: showDock ? 'block' : 'flex'}">
+  <div class="body" :style="{ marginTop: showDock ? '0' : '220px' }">
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
       <div class="input" ref="divRef">
@@ -27,7 +27,11 @@
     <template v-if="showDock">
       <Dock></Dock>
     </template>
-    <ContextMenu v-bind="contextMenuPosition" :showDock="showDock" @dockMenuClick="dockMenuClick"></ContextMenu>
+    <ContextMenu
+      v-bind="contextMenuPosition"
+      :showDock="showDock"
+      @dockMenuClick="dockMenuClick"
+    ></ContextMenu>
   </div>
 </template>
 
@@ -116,15 +120,18 @@ onMounted(() => {
   inputRef.value!.focus();
   document.addEventListener('keydown', handleSearch);
   document.addEventListener('contextmenu', handleContextMenu);
-  document.addEventListener('click', () => {
-    contextMenuPosition.show = false;
-  });
+  document.addEventListener('click', handleDocumentClick);
 });
+
+const handleDocumentClick = () => {
+  contextMenuPosition.show = false;
+};
 
 const dockMenuClick = () => {
   showDock.value = !showDock.value;
   contextMenuPosition.show = false;
 };
+
 const handleContextMenu = (e: any) => {
   e.preventDefault();
   const { clientX: left, clientY: top } = e;

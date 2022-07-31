@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import useMemory from '../hooks/useMemory';
 const props = defineProps({
   top: {
@@ -36,6 +36,8 @@ const emit = defineEmits(['dockMenuClick']);
 
 const data = ref(null);
 
+const timer = ref<any>(null);
+
 const dockMenuClick = function () {
   emit('dockMenuClick');
 };
@@ -45,9 +47,14 @@ const beifen = () => {
 };
 
 onMounted(() => {
-  setInterval(() => {
+  timer.value = setInterval(() => {
     data.value = (new Date() as any).toString().slice(16, 25);
   }, 1000);
+});
+
+// remove event
+onBeforeUnmount(() => {
+  clearInterval(timer.value);
 });
 </script>
 

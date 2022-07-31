@@ -12,14 +12,15 @@ class Message {
   constructor(props: PropsType) {
     const img = document.createElement('img');
     img.style.verticalAlign = 'middle';
-    img.style.margin = '0 10px';
+    img.style.margin = 'auto';
+    img.style.display = 'block';
 
     img.src = props.type == 'error' ? errorImg : success;
 
     this.div = document.createElement('div');
 
     this.div.appendChild(img);
-    this.div.innerHTML += props.message;
+    this.div.innerHTML += `<div>${props.message}</div>`;
 
     this.div.style.position = 'fixed';
     this.div.style.top = '50%';
