@@ -16,8 +16,8 @@ function setTime() {
   const data = new Date();
   let hours = data.getHours();
   let minutes = data.getMinutes();
-  hTime.value = hours;
-  mTime.value = minutes;
+  hTime.value = hours < 10 ? `0${hours}` : hours;
+  mTime.value = minutes < 10 ? `0${minutes}` : minutes;
 }
 
 setTime();
