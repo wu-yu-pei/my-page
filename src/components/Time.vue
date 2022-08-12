@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onUnmounted } from 'vue';
 
 const hTime = ref();
 const mTime = ref();
@@ -22,7 +22,11 @@ function setTime() {
 
 setTime();
 
-setInterval(setTime, 5000);
+const timer = setInterval(setTime, 5000);
+
+onUnmounted(() => {
+  clearInterval(timer);
+});
 </script>
 
 <style scoped>
