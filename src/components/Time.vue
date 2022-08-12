@@ -34,6 +34,8 @@ onUnmounted(() => {
   padding: 0 0 30px;
   text-align: center;
   font-size: 36px;
+  letter-spacing: 5px;
+  font-family: cursive;
   text-shadow: 0 0 20px rgb(0 0 0 / 35%);
 }
 

@@ -118,5 +118,15 @@ const dragEnd = (Evnent: any) => {
   flex-wrap: wrap;
   box-sizing: border-box;
   padding-left: 43px;
+  animation: show linear 1s alternate;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
