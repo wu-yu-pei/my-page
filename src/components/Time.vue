@@ -56,6 +56,8 @@ onUnmounted(() => {
 }
 
 .time span:nth-of-type(2) {
+  font-size: 58px;
+  font-family: cursive;
   color: #fff;
 }
 
