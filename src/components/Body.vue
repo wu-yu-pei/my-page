@@ -1,15 +1,12 @@
 <template>
-  <div class="body" :style="{ marginTop: showDock ? '0' : '220px' }">
+  <div class="body" :style="{ marginTop: showDock ? '0' : '100px' }">
+    <template v-if="!showDock">
+      <Time></Time>
+    </template>
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
       <div class="input" ref="divRef">
-        <input
-          v-model="search"
-          type="text"
-          ref="inputRef"
-          @input="handleInput"
-          @focus="handleFocus"
-        />
+        <input v-model="search" type="text" ref="inputRef" @input="handleInput" @focus="handleFocus" />
         <div class="more" :class="{ show: keyword.length !== 0 || moreIsshow }">
           <div v-if="moreIsshow" class="loading">
             <div class="loadingio-spinner-eclipse-td57dbpe2wr">
@@ -27,11 +24,7 @@
     <template v-if="showDock">
       <Dock></Dock>
     </template>
-    <ContextMenu
-      v-bind="contextMenuPosition"
-      :showDock="showDock"
-      @dockMenuClick="dockMenuClick"
-    ></ContextMenu>
+    <ContextMenu v-bind="contextMenuPosition" :showDock="showDock" @dockMenuClick="dockMenuClick"></ContextMenu>
   </div>
 </template>
 
@@ -41,6 +34,7 @@ import { useDebounceFn, onClickOutside } from '@vueuse/core';
 
 import Select from '../base-ui/Select.vue';
 import Dock from '../base-ui/Dock.vue';
+import Time from './Time.vue';
 
 import { getKeyWord } from '../api/index';
 
