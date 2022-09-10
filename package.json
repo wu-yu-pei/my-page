@@ -13,6 +13,8 @@
     "file-saver": "^2.0.5",
     "less": "^4.1.2",
     "pinia": "^2.0.14",
+    "socket.io-client": "^4.5.2",
+    "vite-plugin-compression": "^0.5.1",
     "vue": "^3.2.25",
     "vue-socket.io": "^3.0.10",
     "vuedraggable": "^4.1.0"
