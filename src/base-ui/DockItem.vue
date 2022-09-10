@@ -5,7 +5,7 @@
     ref="the"
     :target="target"
     @mousedown="showDelete"
-    @contextmenu.stop="(e) => e.preventDefault()"
+    @contextmenu.stop="(e:Event) => e.preventDefault()"
   >
     <img :src="source.icon" alt="" :style="{ borderRadius: `${store.radius}px` }" />
     <div class="dock-item-info">{{ source.des }}</div>
