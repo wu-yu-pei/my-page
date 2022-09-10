@@ -29,8 +29,8 @@ export default defineConfig({
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        manualChunks(id: any) {
-          if (id.includes('node_modules')) {
+        manualChunks(id) {
+          if ((id as any).includes('node_modules')) {
             return id.toString().split('node_modules/.pnpm/')[1].split('/')[0].toString();
           }
         },
