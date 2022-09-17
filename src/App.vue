@@ -28,6 +28,7 @@ onMounted(() => {
   image.src = state.WallpaperImgUlr;
   image.onload = () => {
     (contentEl.value as any).style.background = `url(${state.WallpaperImgUlr})`;
+    (contentEl.value as any).style.backgroundSize = `cover`;
     (filterEl.value as any).style.backdropFilter = `blur(${state.blur}px)`;
   };
 });
