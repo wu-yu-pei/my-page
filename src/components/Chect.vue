@@ -4,7 +4,7 @@
     <div class="chect-content" ref="contentEl">
       <div v-for="(item, index) in messages">
         <div class="self" v-if="item.from == mainStroe.userId">
-          <img :src="mainStroe.userimg" alt="" />
+          <img :src="item.img" alt="" />
           <div>
             <p>{{ item.name }}</p>
             <div class="self-content">
@@ -16,7 +16,7 @@
           <span>{{ item.date }}</span>
         </div>
         <div class="outher" v-else>
-          <img v-loaduserimg="item.from" alt="" />
+          <img :src="item.img" alt="" />
           <div>
             <p>{{ item.name }}</p>
             <div class="outher-content">
