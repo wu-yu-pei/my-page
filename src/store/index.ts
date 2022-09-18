@@ -9,7 +9,7 @@ const useMainStore = defineStore('Main', {
   state: () => {
     return {
       WallpaperImgUlr: localStorage.getItem('bgImage') || proBaseUrl + '/upload/8.jpg',
-      blur: Number(localStorage.getItem('blur')) || 0,
+      blur: Number(localStorage.getItem('blur')) || 10,
       radius: Number(localStorage.getItem('radius')) || 0,
       muenSource:
         (localStorage.getItem('menu') && JSON.parse(localStorage.getItem('menu')!)) || Document,

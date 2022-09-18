@@ -1,6 +1,6 @@
 <template>
   <div class="content" ref="contentEl">
-    <div class="filter" ref="filterEl">
+    <div class="filter" ref="filterEl" :style="{ backdropFilter: `blur(${state.blur}px)` }">
       <Header />
       <Body />
     </div>
@@ -46,6 +46,6 @@ onMounted(() => {
 .filter {
   width: 100vw;
   height: 100vh;
-  backdrop-filter: 100px;
+  backdrop-filter: blur(100px);
 }
 </style>
