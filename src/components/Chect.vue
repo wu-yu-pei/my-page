@@ -166,7 +166,7 @@ onBeforeUnmount(() => {
       overflow: visible;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #0c2135;
+      background-color: #ccc;
       border-radius: 0;
     }
     &::-webkit-scrollbar-button {

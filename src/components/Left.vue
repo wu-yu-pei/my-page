@@ -273,6 +273,23 @@ const switchCanvas = () => {
   padding: 10px;
   overflow-y: scroll;
   overflow-x: hidden;
+  &::-webkit-scrollbar {
+    background-color: #fff;
+    width: 4px;
+    overflow: visible;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 0;
+  }
+  &::-webkit-scrollbar-button {
+    background-color: #2474b5;
+    width: 0px;
+    height: 0px;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: black;
+  }
   & > div {
     margin: 20px 0;
   }
