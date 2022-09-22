@@ -11,14 +11,14 @@ const useMainStore = defineStore('Main', {
       WallpaperImgUlr: localStorage.getItem('bgImage') || proBaseUrl + '/upload/8.jpg',
       blur: Number(localStorage.getItem('blur')) || 10,
       radius: Number(localStorage.getItem('radius')) || 0,
-      muenSource:
-        (localStorage.getItem('menu') && JSON.parse(localStorage.getItem('menu')!)) || Document,
+      muenSource: (localStorage.getItem('menu') && JSON.parse(localStorage.getItem('menu')!)) || Document,
       userId: localStorage.getItem('userId') || '',
       socket: SocketIO(proBaseUrl, {
         autoConnect: false, // 自动连接
       }),
       onlineUser: 0,
       userimg: '',
+      isOpenCanvas: JSON.parse(localStorage.getItem('isOpenCanvas')!) || false,
     };
   },
 });

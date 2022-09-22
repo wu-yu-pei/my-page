@@ -6,6 +6,7 @@
   >
     <li @click="dockMenuClick">{{ showDock ? '隐藏' : '显示' }}Dock栏</li>
     <li @click="beifen">微信备份</li>
+    <li @click="closeCanvas">{{ store.isOpenCanvas ? '关闭特效' : '开启特效' }}</li>
     <li>当前时间:{{ data }}</li>
   </ul>
 </template>
@@ -13,6 +14,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import useMemory from '../hooks/useMemory';
+import useMainStore from '../store';
 const props = defineProps({
   top: {
     type: String,
@@ -32,6 +34,8 @@ const props = defineProps({
   },
 });
 
+const store = useMainStore();
+
 const emit = defineEmits(['dockMenuClick']);
 
 const data = ref(null);
@@ -44,6 +48,10 @@ const dockMenuClick = function () {
 
 const beifen = () => {
   useMemory();
+};
+
+const closeCanvas = () => {
+  store.isOpenCanvas = !store.isOpenCanvas;
 };
 
 onMounted(() => {

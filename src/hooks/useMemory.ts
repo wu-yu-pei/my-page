@@ -17,6 +17,7 @@ export default async function useMemory() {
     redius: localStorage.getItem('radius'),
     menu: localStorage.getItem('menu'),
     userId: localStorage.getItem('userId'),
+    isOpenCanvas: localStorage.getItem('isOpenCanvas'),
   };
   const res = await beifenData(data);
   if (res.data.length === 1) {

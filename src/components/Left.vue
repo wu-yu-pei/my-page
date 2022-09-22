@@ -43,6 +43,18 @@
         <h3>微信备份及恢复</h3>
         <button @click="beifen">微信备份</button>
       </div>
+      <div class="header-left-content-data">
+        <h3>特效开关</h3>
+        <button
+          @click="switchCanvas"
+          :style="{
+            backgroundColor: store.isOpenCanvas ? '#000' : '#fff',
+            color: store.isOpenCanvas ? '#fff' : '#000',
+          }"
+        >
+          {{ store.isOpenCanvas ? '关闭' : '开启' }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -237,6 +249,11 @@ const beifen = async () => {
 onClickOutside(target, () => {
   isShow.value = false;
 });
+
+const switchCanvas = () => {
+  store.isOpenCanvas = !store.isOpenCanvas;
+  localStorage.setItem('isOpenCanvas', String(store.isOpenCanvas));
+};
 </script>
 
 <style scoped lang="less">
@@ -254,6 +271,8 @@ onClickOutside(target, () => {
   transition: all linear 0.3s;
   z-index: 99;
   padding: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   & > div {
     margin: 20px 0;
   }

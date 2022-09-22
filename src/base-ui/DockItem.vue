@@ -6,6 +6,7 @@
     :target="target"
     @mousedown="showDelete"
     @contextmenu.stop="(e:Event) => e.preventDefault()"
+    @mouseenter="showCanvas"
   >
     <img :src="source.icon" alt="" :style="{ borderRadius: `${store.radius}px` }" />
     <div class="dock-item-info">{{ source.des }}</div>
@@ -20,10 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { onClickOutside } from '@vueuse/core';
+import { ref, onMounted } from 'vue';
+import { onClickOutside, useMouse, useWindowSize } from '@vueuse/core';
 
 import useMainStore from '../store/index';
+
+import confetti from 'canvas-confetti';
 
 const props = defineProps({
   source: {
@@ -51,9 +54,21 @@ const store = useMainStore();
 const isShowDelete = ref(false);
 const the = ref(null);
 
+const { x, y } = useMouse();
+const { width, height } = useWindowSize();
+
 const showDelete = (e: any) => {
   if (e.button != 2) return;
   isShowDelete.value = !isShowDelete.value;
+};
+
+const showCanvas = () => {
+  if (!store.isOpenCanvas) return;
+  confetti({
+    particleCount: 10,
+    spread: 50,
+    origin: { x: x.value / width.value, y: y.value / height.value },
+  });
 };
 
 const deleteThis = (e: any) => {
