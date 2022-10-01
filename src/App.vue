@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 import Header from './components/Header.vue';
 import Body from './components/Body.vue';
@@ -32,6 +32,13 @@ onMounted(() => {
     (filterEl.value as any).style.backdropFilter = `blur(${state.blur}px)`;
   };
 });
+// 监听是否发生变化
+watch(
+  () => state.WallpaperImgUlr,
+  () => {
+    (contentEl.value as any).style.background = `url(${state.WallpaperImgUlr})`;
+  }
+);
 </script>
 
 <style scoped>
