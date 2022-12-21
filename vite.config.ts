@@ -29,8 +29,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        manualChunks(id: any) {
-          // cicd打包会出错 暂时解决办法事手动部署
+        manualChunks(id: any) { 
           if (id.includes('node_modules')) {
             return id.toString()?.split('node_modules/.pnpm/')[1]?.split('/')[0].toString();
           }
