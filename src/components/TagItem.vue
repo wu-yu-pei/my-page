@@ -15,21 +15,5 @@ defineProps({
 </script>
 
 <style scoped lang="less">
-.tag-item {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  padding: 5px 10px;
-  color: #fff;
-  border-radius: 5px;
-  color: #fff;
-  letter-spacing: 2px;
-  &:hover {
-    cursor: move;
-  }
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-}
+
 </style>
