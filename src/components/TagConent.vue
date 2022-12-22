@@ -7,7 +7,7 @@
         v-drag
         :style="{ top: item.top + 'px', left: item.left + 'px', background: item.color }"
       >
-        <a :href="item.href">{{ item.text }}</a>
+        <a :href="item.href" target="_blank">{{ item.text }}</a>
       </div>
     </template>
     <div class="add" @click="addTag">
