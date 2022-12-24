@@ -48,7 +48,7 @@ function addTag() {
   if (!href?.trim() || !text?.trim()) return;
 
   let target = {
-    color: 'rgba(114,131,59,0.8)',
+    color: getColor(),
     href: href,
     left: 20,
     text,
