@@ -3,6 +3,7 @@
     <template v-if="!showDock">
       <Time></Time>
     </template>
+    <TagConent></TagConent>
     <div class="body-search">
       <Select @changeSearchOrigin="searchOriginChange" class="select" />
       <div class="input" ref="divRef">
@@ -41,6 +42,7 @@ import { getKeyWord } from '../api/index';
 import { searchConfig } from '../config/search.config';
 import KeyWordItem from '../base-ui/KeyWordItem.vue';
 import ContextMenu from './ContextMenu.vue';
+import TagConent from './TagConent.vue';
 
 const search = ref('');
 const searchOrigin = ref();
