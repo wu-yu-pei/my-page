@@ -100,6 +100,7 @@ const send = async () => {
     img: mainStroe.userimg,
     message: inputValue.value,
     date: +new Date(),
+    
   };
 
   if (
