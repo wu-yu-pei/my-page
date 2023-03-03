@@ -32,6 +32,7 @@ const { x, y, style } = useDraggable(searchEl, {
 
 if (state.userId) {
   useSyncConfig(state.userId);
+  
 }
 onMounted(() => {
   const image = new Image();
