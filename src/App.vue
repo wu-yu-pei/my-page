@@ -22,6 +22,7 @@ const filterEl = ref(null);
 
 if (state.userId) {
   useSyncConfig(state.userId);
+  
 }
 onMounted(() => {
   const image = new Image();
